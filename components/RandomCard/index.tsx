@@ -10,28 +10,30 @@ const RandomCard = ({ randomCard }) => {
 
   return (
     <>
-      <h2 className='text-5xl font-bold mb-10'>Random Card</h2>
-      <div className='border border-blue-500'>
-        <div className='tabs border border-red-600 flex'>
+      <h2 className='text-7xl uppercase tracking-wide font-bold mb-10 text-white'>
+        Random Card
+      </h2>
+      <div className=''>
+        <div className='tabs flex'>
           {isHoloFoil && (
-            <p className='mr-2 px-4 py-2 rounded-t-xl border border-gray-300 shadow-xl'>
+            <p className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl border border-gray-300 shadow-xl'>
               Holofoil
             </p>
           )}
           {isReverseHoloFoil && (
-            <p className='mr-2 px-4 py-2 rounded-t-xl border border-gray-300 shadow-xl'>
+            <p className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl border border-gray-300 shadow-xl'>
               Reverse Holofoil
             </p>
           )}
         </div>
-        <div className='h-96 flex bg-gradient-to-r from-black shadow-lg rounded-xl'>
+        <div className='h-96 flex bg-white bg-opacity-70 shadow-lg rounded-xl'>
           <img
             src={randomCard.images.large}
             className='h-full'
             alt='random card'
           />
           <div className=' '>
-            <p className='font-bold text-4xl text-white uppercase tracking-widest p-5'>
+            <p className='font-bold text-4xl uppercase tracking-widest p-5'>
               {randomCard.name}
             </p>
             <div className='flex flex-wrap justify-center'>

@@ -23,19 +23,21 @@ const Home: React.FC = ({ randomCard }) => {
       </Head>
 
       <section className='xl:w-5/12 border border-blue-500 w-full min-h-screen relative'>
-        <div className='image-overlay h-full w-full bg-gradient-to-r from-black absolute top-0 left-0'></div>
-        <h1 className='text-6xl md:text-8xl w-2/3 xl:w-3/4 text-white font-bold absolute top-10 left-10 z-0'>
-          Pokemon TCG <span className='text-blue-400'>Price Guide</span>
-        </h1>
         <img
-          className='object-cover h-full'
+          className='object-cover h-full absolute top-0 left-0 '
           src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
           alt='home background'
         />
+        <div className='image-overlay h-full w-full bg-gradient-to-r from-black absolute top-0 left-0'></div>
+        <h1 className='text-6xl md:text-8xl w-2/3 xl:w-3/4 text-white font-bold relative p-10'>
+          Pokemon TCG <span className='text-blue-400'>Price Guide</span>
+        </h1>
+        <div className='relative flex justify-center mt-10'>
+          <CardSearch />
+        </div>
       </section>
       <section className='p-20 xl:w-7/12 border border-blue-500 min-h-screen flex flex-col justify-center items-center'>
         <RandomCard randomCard={randomCard} />
-        <CardSearch />
       </section>
     </main>
   );

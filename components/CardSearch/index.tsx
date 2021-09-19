@@ -1,6 +1,6 @@
 const CardSearch = () => {
   return (
-    <div className='my-10 border border-blue-500 w-1/2'>
+    <div className='my-10 border border-blue-500 w-1/2 bg-white bg-opacity-80 py-5 px-10 rounded-xl'>
       <h2 className='text-3xl font-thin'>Search For Card</h2>
       <input
         type='text'

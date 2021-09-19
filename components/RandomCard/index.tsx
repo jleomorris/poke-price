@@ -10,18 +10,18 @@ const RandomCard = ({ randomCard }) => {
 
   return (
     <>
-      <h2 className='text-7xl uppercase tracking-wide font-bold mb-10 text-white'>
+      <h2 className='text-7xl tracking-tighter mb-10 text-white'>
         Random Card
       </h2>
       <div className=''>
-        <div className='tabs flex'>
+        <div className='tabs ml-3 flex'>
           {isHoloFoil && (
-            <p className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl border border-gray-300 shadow-xl'>
+            <p className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl'>
               Holofoil
             </p>
           )}
           {isReverseHoloFoil && (
-            <p className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl border border-gray-300 shadow-xl'>
+            <p className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl'>
               Reverse Holofoil
             </p>
           )}
@@ -32,17 +32,24 @@ const RandomCard = ({ randomCard }) => {
             className='h-full'
             alt='random card'
           />
-          <div className=' '>
-            <p className='font-bold text-4xl uppercase tracking-widest p-5'>
+          <div className='p-3'>
+            <p className='font-bold text-4xl uppercase tracking-widest'>
               {randomCard.name}
             </p>
-            <div className='flex flex-wrap justify-center'>
-              <div className='m-5 shadow-inner p-4 bg-white bg-opacity-80 m-1 flex flex-col items-center rounded-xl'>
-                <p className='font-bold text-xl'>Market Price (Holofoil) </p>
-                <p className='font-bold text-6xl'>
-                  ${randomCard.tcgplayer?.prices?.holofoil?.market}
-                </p>
-              </div>
+            <p className='text-xl uppercase tracking-widest'>
+              {randomCard.set.name}
+            </p>
+            <p className='text-md uppercase tracking-widest'>
+              Release date: {randomCard.set.releaseDate}
+            </p>
+            <p className='text-md uppercase tracking-widest'>
+              No. printed: {randomCard.set.printedTotal}
+            </p>
+            <div className='inline-block shadow-inner p-4 mt-5 bg-white bg-opacity-80 m-1  rounded-xl'>
+              <p className='font-bold text-xl'>Market Price (Holofoil) </p>
+              <p className='font-bold text-7xl'>
+                ${randomCard.tcgplayer?.prices?.holofoil?.market}
+              </p>
               {/* <div className='shadow-inner p-4 bg-white bg-opacity-80 m-1 flex flex-col items-center rounded-r-xl'>
               <p className='font-bold text-xl'>Updated at </p>
               <p className='font-bold text-6xl'>

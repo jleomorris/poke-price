@@ -29,15 +29,13 @@ const Home: React.FC = ({ randomCard }) => {
       />
       <div className='image-overlay h-full w-full bg-gradient-to-r from-black via-black absolute top-0 left-0'></div>
 
-      <section className='xl:w-5/12 w-full min-h-screen relative'>
-        <h1 className='text-6xl md:text-8xl text-white font-bold relative p-10'>
+      <section className='p-20 xl:w-5/12 w-full xl:min-h-screen relative'>
+        <h1 className='text-6xl md:text-8xl text-white font-bold relative'>
           Pokemon TCG <span className='text-blue-400'>Price Guide</span>
         </h1>
-        <div className='relative flex justify-center'>
-          <CardSearch />
-        </div>
+        <CardSearch />
       </section>
-      <section className='p-20 xl:w-7/12 min-h-screen flex flex-col justify-center items-start relative'>
+      <section className='p-10 xl:w-7/12 min-h-screen flex flex-col xl:justify-center items-start relative'>
         <RandomCard randomCard={randomCard} />
       </section>
     </main>

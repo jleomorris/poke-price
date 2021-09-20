@@ -4,14 +4,48 @@ import Head from 'next/head';
 import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
 // Components
-import RandomCard from '../components/RandomCard';
+import PriceCard from '../components/PriceCard';
 import CardSearch from '../components/CardSearch';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
 const Home: React.FC = ({ randomCard }) => {
-  console.log('home.randomCard', randomCard);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchedCards, setSearchedCards] = useState();
+
+  useEffect(() => {
+    console.log('RandomCard.searchTerm.length', searchTerm.length);
+    console.log('RandomCard.searchTerm', searchTerm);
+
+    if (searchTerm.length > 0) {
+      const fetchSearchTerm = async () => {
+        const res = await fetch(
+          `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`
+        );
+        const data = await res.json();
+        const cards = await data.data;
+
+        return cards;
+      };
+
+      fetchSearchTerm().then((result) =>
+        // console.log('RandomCard.fetchedCards', result)
+        setSearchedCards(result)
+      );
+    }
+  }, [searchTerm]);
+
+  const renderCards = () => {
+    const cards = searchedCards || randomCard;
+
+    return cards.map((card) => (
+      <>
+        <div className='my-10'>
+          <PriceCard key={card.name} card={card} />
+        </div>
+      </>
+    ));
+  };
 
   return (
     <main className='relative w-screen min-h-screen flex flex-wrap justify-center bg-gray-100'>
@@ -37,8 +71,13 @@ const Home: React.FC = ({ randomCard }) => {
         </h1>
         <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </section>
-      <section className='p-10 xl:w-7/12 min-h-screen flex flex-col xl:justify-center items-start relative'>
-        <RandomCard randomCard={randomCard} />
+      <section
+        className={`p-10 xl:w-7/12 min-h-screen flex flex-col xl:justify-center items-start relative`}
+      >
+        <h2 className='text-7xl tracking-tighter mb-10 text-white'>
+          Random Card
+        </h2>
+        {renderCards()}
       </section>
     </main>
   );
@@ -51,7 +90,8 @@ export async function getStaticProps() {
   const data = await res.json();
   const cards = await data.data;
 
-  const randomCard = await cards[Math.floor(Math.random() * cards.length)];
+  const random = await cards[Math.floor(Math.random() * cards.length)];
+  const randomCard = await Array(random);
 
   return {
     props: {

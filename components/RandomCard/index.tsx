@@ -35,7 +35,9 @@ const RandomCard = ({ randomCard }) => {
       <div className='tabs ml-3 flex'>
         {isNormal && (
           <button
-            className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl'
+            className={`mr-2 px-4 py-2 bg-white ${
+              selectedType === 'normal' ? '' : 'bg-opacity-50'
+            } rounded-t-xl`}
             onClick={() => setSelectedType('normal')}
           >
             Normal
@@ -43,7 +45,9 @@ const RandomCard = ({ randomCard }) => {
         )}
         {isHoloFoil && (
           <button
-            className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl'
+            className={`mr-2 px-4 py-2 bg-white ${
+              selectedType === 'holo foil' ? '' : 'bg-opacity-50'
+            } rounded-t-xl`}
             onClick={() => setSelectedType('holo foil')}
           >
             Holofoil
@@ -51,7 +55,9 @@ const RandomCard = ({ randomCard }) => {
         )}
         {isReverseHoloFoil && (
           <button
-            className='mr-2 px-4 py-2 bg-white bg-opacity-70 rounded-t-xl'
+            className={`mr-2 px-4 py-2 bg-white ${
+              selectedType === 'reverse holo foil' ? '' : 'bg-opacity-50'
+            } rounded-t-xl`}
             onClick={() => setSelectedType('reverse holo foil')}
           >
             Reverse Holofoil
@@ -89,13 +95,7 @@ const RandomCard = ({ randomCard }) => {
             No. printed: {randomCard.set.printedTotal}
           </p>
           <div className='inline-block shadow-inner p-4 mt-5 bg-white bg-opacity-80 m-1  rounded-xl'>
-            <p className='font-bold text-xl'>
-              Market Price (
-              {(selectedType === 'holo foil' && 'holofoil') ||
-                (selectedType === 'reverse holo foil' && 'reverse holo foil') ||
-                (selectedType === 'normal' && 'normal')}
-              )
-            </p>
+            <p className='font-bold text-xl'>Market Price</p>
             <p className='font-bold text-7xl'>
               $
               {(selectedType === 'holo foil' &&
@@ -110,14 +110,7 @@ const RandomCard = ({ randomCard }) => {
         <div className=' rounded-r-xl overflow-hidden'>
           <div className='flex flex-col h-full'>
             <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
-              <p className='font-bold text-xl'>
-                Low Price (
-                {(selectedType === 'holo foil' && 'holofoil') ||
-                  (selectedType === 'reverse holo foil' &&
-                    'reverse holo foil') ||
-                  (selectedType === 'normal' && 'normal')}
-                )
-              </p>
+              <p className='font-bold text-xl'>Low Price</p>
               <p className='font-bold text-6xl text-red-500 '>
                 $
                 {(selectedType === 'holo foil' &&
@@ -129,14 +122,7 @@ const RandomCard = ({ randomCard }) => {
               </p>
             </div>
             <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
-              <p className='font-bold text-xl'>
-                Mid Price (
-                {(selectedType === 'holo foil' && 'holofoil') ||
-                  (selectedType === 'reverse holo foil' &&
-                    'reverse holo foil') ||
-                  (selectedType === 'normal' && 'normal')}
-                )
-              </p>
+              <p className='font-bold text-xl'>Mid Price</p>
               <p className='font-bold text-6xl text-yellow-500'>
                 $
                 {(selectedType === 'holo foil' &&
@@ -148,14 +134,7 @@ const RandomCard = ({ randomCard }) => {
               </p>
             </div>
             <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
-              <p className='font-bold text-xl'>
-                High Price (
-                {(selectedType === 'holo foil' && 'holofoil') ||
-                  (selectedType === 'reverse holo foil' &&
-                    'reverse holo foil') ||
-                  (selectedType === 'normal' && 'normal')}
-                )
-              </p>
+              <p className='font-bold text-xl'>High Price</p>
               <p className='font-bold text-6xl text-green-500'>
                 $
                 {(selectedType === 'holo foil' &&

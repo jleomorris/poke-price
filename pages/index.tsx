@@ -36,13 +36,25 @@ const Home: React.FC = ({ randomCard }) => {
   }, [searchTerm]);
 
   const renderCards = () => {
-    const cards = searchedCards || randomCard;
+    const cards = (searchedCards.length > 0 && searchedCards) || randomCard;
+
+    // debugger;
 
     return cards.map((card) => (
       <>
         <div className='mx-5 my-10 w-full xl:w-5/12'>
           <PriceCard key={card.name} card={card} />
         </div>
+      </>
+    ));
+  };
+
+  const renderRandomCard = () => {
+    const cards = randomCard;
+
+    return cards.map((card) => (
+      <>
+        <PriceCard key={card.name} card={card} />
       </>
     ));
   };
@@ -58,7 +70,7 @@ const Home: React.FC = ({ randomCard }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <section className='p-5 sm:p-20 w-full xl:min-h-screen relative flex flex-col justify-center items-center'>
+      <section className='p-5 sm:p-20 w-full xl:min-h-screen relative flex flex-col justify-start items-center'>
         <img
           className='object-cover h-full w-full absolute top-0 left-0 '
           src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
@@ -70,6 +82,17 @@ const Home: React.FC = ({ randomCard }) => {
         </h1>
         <div className='w-2/3 lg:w-1/3'>
           <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </div>
+        <div
+          className={`absolute bottom-0 right-0 p-5 bg-black bg-opacity-50 flex flex-col rounded-tl-xl xl:justify-center items-start`}
+        >
+          <h2
+            style={{ top: '-20px', right: '20px' }}
+            className='absolute bg-opacity-90 bg-white mb-10 p-3 px-5 right-0 rounded-xl text-3xl top-0 tracking-tighter'
+          >
+            {`Random`}
+          </h2>
+          {renderRandomCard()}
         </div>
       </section>
       {searchedCards.length > 0 && (

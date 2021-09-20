@@ -11,7 +11,7 @@ const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
 const Home: React.FC = ({ randomCard }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [searchedCards, setSearchedCards] = useState();
+  const [searchedCards, setSearchedCards] = useState([]);
 
   useEffect(() => {
     console.log('RandomCard.searchTerm.length', searchTerm.length);
@@ -40,7 +40,7 @@ const Home: React.FC = ({ randomCard }) => {
 
     return cards.map((card) => (
       <>
-        <div className='my-10'>
+        <div className='mx-5 my-10 w-full xl:w-5/12'>
           <PriceCard key={card.name} card={card} />
         </div>
       </>
@@ -58,27 +58,31 @@ const Home: React.FC = ({ randomCard }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <img
-        className='object-cover h-full w-full absolute top-0 left-0 '
-        src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
-        alt='home background'
-      />
-      <div className='image-overlay h-full w-full bg-gradient-to-r from-black via-black absolute top-0 left-0'></div>
-
-      <section className='p-20 xl:w-5/12 w-full xl:min-h-screen relative'>
-        <h1 className='text-6xl md:text-8xl text-white font-bold relative'>
+      <section className='p-5 sm:p-20 w-full xl:min-h-screen relative flex flex-col justify-center items-center'>
+        <img
+          className='object-cover h-full w-full absolute top-0 left-0 '
+          src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
+          alt='home background'
+        />
+        <div className='image-overlay h-full w-full bg-gradient-to-r from-black absolute top-0 left-0'></div>
+        <h1 className='text-6xl md:text-8xl text-center text-white font-bold relative'>
           Pokemon TCG <span className='text-blue-400'>Price Guide</span>
         </h1>
-        <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <div className='w-2/3 lg:w-1/3'>
+          <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </div>
       </section>
-      <section
-        className={`p-10 xl:w-7/12 min-h-screen flex flex-col xl:justify-center items-start relative`}
-      >
-        <h2 className='text-7xl tracking-tighter mb-10 text-white'>
-          Random Card
-        </h2>
-        {renderCards()}
-      </section>
+      {searchedCards.length > 0 && (
+        <section
+          className={`p-5 sm:p-20 w-full bg-black bg-opacity-90 min-h-screen flex flex-wrap xl:justify-center items-start relative`}
+        >
+          <h2 className='text-3xl md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
+            {`Search results for `}
+            <span className='text-blue-400'>{`"${searchTerm}"`}</span>
+          </h2>
+          {renderCards()}
+        </section>
+      )}
     </main>
   );
 };

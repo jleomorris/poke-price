@@ -78,8 +78,8 @@ const PriceCard = ({ card }) => {
             // objectFit='contain'
           />
         </div>
-        <div className='p-3 bg-white bg-opacity-70'>
-          <p className='font-bold text-4xl uppercase tracking-widest'>
+        <div className='p-3 bg-white bg-opacity-70 w-1/3 border border-blue-500'>
+          <p className='font-bold text-3xl uppercase tracking-widest'>
             {card.name}
           </p>
           <p className='text-xl uppercase tracking-widest'>{card.set.name}</p>
@@ -91,7 +91,7 @@ const PriceCard = ({ card }) => {
           </p>
           <div className='inline-block shadow-inner p-4 mt-5 bg-white bg-opacity-80 m-1  rounded-xl'>
             <p className='font-bold text-xl'>Market Price</p>
-            <p className='font-bold text-7xl'>
+            <p className='font-bold text-5xl'>
               $
               {(selectedType === 'holo foil' &&
                 card.tcgplayer?.prices?.holofoil?.market) ||
@@ -102,11 +102,11 @@ const PriceCard = ({ card }) => {
             </p>
           </div>
         </div>
-        <div className=' rounded-r-xl overflow-hidden'>
+        <div className=' rounded-r-xl overflow-hidden w-1/3 border border-red-500'>
           <div className='flex flex-col h-full'>
             <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
               <p className='font-bold text-xl'>Low Price</p>
-              <p className='font-bold text-6xl text-red-500 '>
+              <p className='font-bold text-5xl text-red-500 '>
                 $
                 {(selectedType === 'holo foil' &&
                   card.tcgplayer?.prices?.holofoil?.low) ||
@@ -118,7 +118,7 @@ const PriceCard = ({ card }) => {
             </div>
             <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
               <p className='font-bold text-xl'>Mid Price</p>
-              <p className='font-bold text-6xl text-yellow-500'>
+              <p className='font-bold text-5xl text-yellow-500'>
                 $
                 {(selectedType === 'holo foil' &&
                   card.tcgplayer?.prices?.holofoil?.mid) ||
@@ -130,7 +130,7 @@ const PriceCard = ({ card }) => {
             </div>
             <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
               <p className='font-bold text-xl'>High Price</p>
-              <p className='font-bold text-6xl text-green-500'>
+              <p className='font-bold text-5xl text-green-500'>
                 $
                 {(selectedType === 'holo foil' &&
                   card.tcgplayer?.prices?.holofoil?.high) ||

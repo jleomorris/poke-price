@@ -8,12 +8,11 @@ interface Iprops {
 const CardSearch: React.FC<Iprops> = ({ searchTerm, setSearchTerm }) => {
   const [value, setValue] = useState<string>('');
 
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
+  // useEffect(() => {
+  //   console.log(value);
+  // }, [value]);
 
   const submitHandler = () => {
-    alert(value);
     setSearchTerm(value);
     // e.preventDefault();
   };

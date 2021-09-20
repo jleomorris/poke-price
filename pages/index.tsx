@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 // Next
 import Head from 'next/head';
 import Image from 'next/image';
@@ -10,6 +11,7 @@ const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
 const Home: React.FC = ({ randomCard }) => {
   console.log('home.randomCard', randomCard);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   return (
     <main className='relative w-screen min-h-screen flex flex-wrap justify-center bg-gray-100'>
@@ -33,7 +35,7 @@ const Home: React.FC = ({ randomCard }) => {
         <h1 className='text-6xl md:text-8xl text-white font-bold relative'>
           Pokemon TCG <span className='text-blue-400'>Price Guide</span>
         </h1>
-        <CardSearch />
+        <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </section>
       <section className='p-10 xl:w-7/12 min-h-screen flex flex-col xl:justify-center items-start relative'>
         <RandomCard randomCard={randomCard} />

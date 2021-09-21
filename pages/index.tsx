@@ -98,7 +98,8 @@ const Home: React.FC = ({ randomCard }) => {
           className={`p-5 sm:p-20 w-full bg-black bg-opacity-90 min-h-screen flex flex-wrap xl:justify-center items-start relative`}
         >
           <h2 className='text-3xl md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
-            {`Search results for `}
+            <span className='text-blue-400'>{searchedCards.length} </span>
+            {`results for `}
             <span className='text-blue-400'>{`"${searchTerm}"`}</span>
           </h2>
           {renderCards()}

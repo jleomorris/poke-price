@@ -13,15 +13,15 @@ const PriceCard = ({ card }) => {
 
   // Set Card Types
   const setCardTypes = (): void => {
-    if (card.tcgplayer.prices.reverseHolofoil) {
+    if (card.tcgplayer?.prices.reverseHolofoil) {
       setIsReverseHoloFoil(true);
       setSelectedType('reverse holo foil');
     }
-    if (card.tcgplayer.prices.holofoil) {
+    if (card.tcgplayer?.prices.holofoil) {
       setIsHoloFoil(true);
       setSelectedType('holo foil');
     }
-    if (card.tcgplayer.prices.normal) {
+    if (card.tcgplayer?.prices.normal) {
       setIsNormal(true);
       setSelectedType('normal');
     }

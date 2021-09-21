@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, DOMElement } from 'react';
 // Next
 import Head from 'next/head';
 import Image from 'next/image';
@@ -28,12 +28,20 @@ const Home: React.FC = ({ randomCard }) => {
         return cards;
       };
 
-      fetchSearchTerm().then((result) =>
-        // console.log('RandomCard.fetchedCards', result)
-        setSearchedCards(result)
-      );
+      fetchSearchTerm()
+        .then((result) =>
+          // console.log('RandomCard.fetchedCards', result)
+          setSearchedCards(result)
+        )
+        .then(() => {
+          scrollTo('search-results');
+        });
     }
   }, [searchTerm]);
+
+  const scrollTo = (target: string): void => {
+    document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+  };
 
   const renderCards = () => {
     const cards = (searchedCards.length > 0 && searchedCards) || randomCard;
@@ -86,6 +94,7 @@ const Home: React.FC = ({ randomCard }) => {
       </section>
       {searchedCards.length > 0 && (
         <section
+          id='search-results'
           className={`p-5 sm:p-20 w-full bg-black bg-opacity-90 min-h-screen flex flex-wrap xl:justify-center items-start relative`}
         >
           <h2 className='text-3xl md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>

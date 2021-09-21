@@ -70,29 +70,18 @@ const Home: React.FC = ({ randomCard }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <section className='p-5 sm:p-20 w-full xl:min-h-screen relative flex flex-col justify-start items-center'>
+      <section className='p-5 sm:p-20 w-full xl:min-h-screen relative flex flex-col justify-center items-center'>
         <img
           className='object-cover h-full w-full absolute top-0 left-0 '
           src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
           alt='home background'
         />
         <div className='image-overlay h-full w-full bg-gradient-to-r from-black absolute top-0 left-0'></div>
-        <h1 className='text-6xl md:text-8xl text-center text-white font-bold relative'>
+        <h1 className='text-6xl md:text-8xl mb-10 text-center text-white font-bold relative'>
           Pokemon TCG <span className='text-blue-400'>Price Guide</span>
         </h1>
         <div className='w-2/3 lg:w-1/3'>
           <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        </div>
-        <div
-          className={`absolute bottom-0 right-0 p-5 bg-black bg-opacity-50 flex flex-col rounded-tl-xl xl:justify-center items-start`}
-        >
-          <h2
-            style={{ top: '-20px', right: '20px' }}
-            className='absolute bg-opacity-90 bg-white mb-10 p-3 px-5 right-0 rounded-xl text-3xl top-0 tracking-tighter'
-          >
-            {`Random`}
-          </h2>
-          {renderRandomCard()}
         </div>
       </section>
       {searchedCards.length > 0 && (

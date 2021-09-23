@@ -18,3 +18,15 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.card-search-container {
+  right: -300px;
+  top: 30%;
+  transform: translateY(-30%);
+}
+
+.magnification-icon-container {
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}

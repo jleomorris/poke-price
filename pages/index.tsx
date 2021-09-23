@@ -6,6 +6,7 @@ import homeStyles from '../styles/Home.module.css';
 // Components
 import PriceCard from '../components/PriceCard';
 import CardSearch from '../components/CardSearch';
+import Features from '../components/Features';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
@@ -13,6 +14,7 @@ const Home: React.FC = ({ randomCard }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchedCards, setSearchedCards] = useState([]);
 
+  // When search term is set fetch data
   useEffect(() => {
     console.log('RandomCard.searchTerm.length', searchTerm.length);
     console.log('RandomCard.searchTerm', searchTerm);
@@ -79,16 +81,12 @@ const Home: React.FC = ({ randomCard }) => {
       </Head>
 
       <section className='w-full xl:min-h-screen relative flex justify-start items-start'>
-        <div className='p-20 w-full xl:w-7/12 border min-h-screen border-blue-500 relative'>
+        <div className='p-20 w-full xl:w-7/12 flex flex-col justify-between border min-h-screen border-blue-500 relative'>
           <h1 className='text-6xl text-black md:text-8xl mb-10 xl:w-3/4 font-bold relative'>
             Quickly find a card price with{' '}
             <span className='text-blue-400'>PokePrice</span>
           </h1>
-          <ul className='ml-8 list-disc text-3xl xl:w-1/2'>
-            <li>Card prices from TCGPlayer </li>
-            <li>Find cards by name, type, release date, legality, and more</li>
-            <li>Developed using PokemonTCG API</li>
-          </ul>
+          <Features />
           <div className='card-search-container absolute z-10 w-2/3 lg:w-1/2'>
             <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           </div>
@@ -100,28 +98,6 @@ const Home: React.FC = ({ randomCard }) => {
             alt='home background'
           />
           <div className='image-overlay h-full w-full bg-gradient-to-t from-white absolute top-0 left-0'></div>
-        </div>
-      </section>
-      <section className='features hidden w-full p-10 xl:w-3/12 xl:min-h-screen text-center absolute top-0 right-0 bg-black bg-opacity-70'>
-        <div className='usp my-10'>
-          <img
-            src='https://mp-assets.tcgplayer.com/img/TCGplayer-logo-primary@2x.png'
-            alt='usp'
-            className='mb-5 w-2/3 mx-auto'
-          />
-          <h2 className='text-4xl text-white text-opacity-70'>
-            Prices from TCGPlayer
-          </h2>
-        </div>
-        <div className='usp my-10'>
-          <img
-            src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1632194237/Pokemon-tcg-price-guide/gengar.png'
-            alt='usp'
-            className='mb-5 w-2/3 mx-auto'
-          />
-          <h2 className='text-4xl text-white text-opacity-70'>
-            Developed with Pokemontcg API
-          </h2>
         </div>
       </section>
       {searchedCards.length > 0 && (

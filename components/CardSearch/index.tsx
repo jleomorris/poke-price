@@ -19,7 +19,7 @@ const CardSearch: React.FC<Iprops> = ({ searchTerm, setSearchTerm }) => {
 
   return (
     <div className='my-10 w-full bg-black bg-opacity-90 py-10 px-14 rounded-3xl relative'>
-      <h2 className='text-3xl text-white text-center mb-3 font-thin'>Search</h2>
+      <h2 className='text-4xl text-white text-center mb-3 font-thin'>Search</h2>
       {/* <form onSubmit={(e) => submitHandler} action='/'> */}
       <div className='relative'>
         <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200'>

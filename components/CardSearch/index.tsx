@@ -14,7 +14,14 @@ const CardSearch: React.FC<Iprops> = ({ searchTerm, setSearchTerm }) => {
 
   const submitHandler = () => {
     setSearchTerm(value);
+    setValue('');
     // e.preventDefault();
+  };
+
+  const inputKeyHandler = (e) => {
+    if (e.keyCode === 13) {
+      submitHandler();
+    }
   };
 
   return (
@@ -50,6 +57,7 @@ const CardSearch: React.FC<Iprops> = ({ searchTerm, setSearchTerm }) => {
           placeholder='Enter card name or number'
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyUp={(e) => inputKeyHandler(e)}
         />
       </div>
       <button

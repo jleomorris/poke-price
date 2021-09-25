@@ -3,7 +3,7 @@ import { SetStateAction, useState, useEffect } from 'react';
 interface Iprops {
   searchTerm: string;
   setSearchTerm: any;
-  isErrowShowing: boolean;
+  isErrorShowing: boolean;
 }
 
 const CardSearch: React.FC<Iprops> = ({

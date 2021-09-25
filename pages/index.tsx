@@ -23,7 +23,13 @@ const Home: React.FC = ({ randomCard }) => {
     if (searchTerm.length > 0) {
       const fetchSearchTerm = async () => {
         const res = await fetch(
-          `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`
+          `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`,
+          {
+            method: 'GET',
+            headers: {
+              'X-Api-Key': process.env.NEXT_PUBLIC_POKEMON_TCG_KEY!,
+            },
+          }
         );
 
         if (!res.ok) {

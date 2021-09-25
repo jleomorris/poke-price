@@ -3,9 +3,14 @@ import { SetStateAction, useState, useEffect } from 'react';
 interface Iprops {
   searchTerm: string;
   setSearchTerm: any;
+  isErrowShowing: boolean;
 }
 
-const CardSearch: React.FC<Iprops> = ({ searchTerm, setSearchTerm }) => {
+const CardSearch: React.FC<Iprops> = ({
+  searchTerm,
+  setSearchTerm,
+  isErrorShowing,
+}) => {
   const [value, setValue] = useState<string>('');
 
   // useEffect(() => {
@@ -66,6 +71,11 @@ const CardSearch: React.FC<Iprops> = ({ searchTerm, setSearchTerm }) => {
       >
         Submit
       </button>
+      {isErrorShowing && (
+        <p className='mt-5 text-red-500 font-bold text-center'>
+          No results found, please try another search.
+        </p>
+      )}
       {/* </form> */}
     </div>
   );

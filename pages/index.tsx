@@ -13,6 +13,7 @@ const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 const Home: React.FC = ({ randomCard }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchedCards, setSearchedCards] = useState([]);
+  const [isErrowShowing, setIsErrorShowing] = useState(false);
 
   // When search term is set fetch data
   useEffect(() => {
@@ -24,25 +25,37 @@ const Home: React.FC = ({ randomCard }) => {
         const res = await fetch(
           `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`
         );
+
+        if (!res.ok) {
+          const message = `An error has occured: ${res.status}`;
+          throw new Error(message);
+        }
+
         const data = await res.json();
         const cards = await data.data;
 
         return cards;
       };
 
-      fetchSearchTerm()
-        .then((result) =>
-          // console.log('RandomCard.fetchedCards', result)
-          setSearchedCards(result)
-        )
-        .then(() => {
+      fetchSearchTerm().then((result) => {
+        // console.log('RandomCard.fetchedCards', result)
+        setSearchedCards(result);
+        if (result.length > 0) {
           scrollTo('search-results');
-        });
+          setIsErrorShowing(false);
+        } else {
+          setIsErrorShowing(true);
+        }
+      });
+      // .then((result) => {
+      //   console.log('RESULT', result);
+      //   scrollTo('search-results');
+      // });
     }
   }, [searchTerm]);
 
   const scrollTo = (target: string): void => {
-    document.getElementById(target).scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(target)!.scrollIntoView({ behavior: 'smooth' });
   };
 
   const renderCards = () => {
@@ -88,7 +101,11 @@ const Home: React.FC = ({ randomCard }) => {
           </h1>
           <Features />
           <div className='card-search-container absolute z-10 w-2/3 lg:w-1/2'>
-            <CardSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            <CardSearch
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              isErrorShowing={isErrowShowing}
+            />
           </div>
         </div>
         <div className='background-img relative xl:w-5/12 min-h-screen border border-red'>

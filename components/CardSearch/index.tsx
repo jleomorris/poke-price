@@ -4,18 +4,16 @@ interface Iprops {
   searchTerm: string;
   setSearchTerm: any;
   isErrorShowing: boolean;
+  searchHistory: string[];
 }
 
 const CardSearch: React.FC<Iprops> = ({
   searchTerm,
   setSearchTerm,
   isErrorShowing,
+  searchHistory,
 }) => {
   const [value, setValue] = useState<string>('');
-
-  // useEffect(() => {
-  //   console.log(value);
-  // }, [value]);
 
   const submitHandler = () => {
     setSearchTerm(value);
@@ -29,10 +27,26 @@ const CardSearch: React.FC<Iprops> = ({
     }
   };
 
+  const renderSearchHistory = () => {
+    const searchHistoryReversed = searchHistory.slice().reverse();
+
+    return searchHistoryReversed.map((item) => (
+      <>
+        <button onClick={() => setSearchTerm(item)}>
+          <p
+            className='capitalize border hover:text-blue-400  text-white hover:border-blue-400 border-white py-2 px-4 rounded-full ml-0 m-2'
+            key={item}
+          >
+            {item}
+          </p>
+        </button>
+      </>
+    ));
+  };
+
   return (
     <div className='my-10 w-full bg-black bg-opacity-90 py-10 px-14 rounded-3xl relative'>
       <h2 className='text-4xl text-white text-center mb-3 font-thin'>Search</h2>
-      {/* <form onSubmit={(e) => submitHandler} action='/'> */}
       <div className='relative'>
         <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200'>
           <button onClick={submitHandler}>
@@ -76,7 +90,12 @@ const CardSearch: React.FC<Iprops> = ({
           No results found, please try another search.
         </p>
       )}
-      {/* </form> */}
+      {searchHistory && (
+        <>
+          <h2 className='mt-5 mb-3 text-white'>Previous searches</h2>
+          {renderSearchHistory()}
+        </>
+      )}
     </div>
   );
 };

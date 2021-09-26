@@ -14,6 +14,7 @@ const Home: React.FC = ({ randomCard }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchedCards, setSearchedCards] = useState([]);
   const [isErrowShowing, setIsErrorShowing] = useState(false);
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
   // When search term is set fetch data
   useEffect(() => {
@@ -49,6 +50,7 @@ const Home: React.FC = ({ randomCard }) => {
         if (result.length > 0) {
           scrollTo('search-results');
           setIsErrorShowing(false);
+          setSearchHistory([...searchHistory, searchTerm]);
         } else {
           setIsErrorShowing(true);
         }
@@ -59,6 +61,27 @@ const Home: React.FC = ({ randomCard }) => {
       // });
     }
   }, [searchTerm]);
+
+  // On app first render set search history state based on local storage
+  useEffect(() => {
+    const localSearchHistory = localStorage.getItem('searchHistory');
+
+    if (localSearchHistory) {
+      setSearchHistory(JSON.parse(localSearchHistory));
+    }
+  }, []);
+
+  // Set search history to local storage whenever it changes
+  useEffect(() => {
+    // debugger;
+
+    const slicedSearchHistory = searchHistory.slice(
+      searchHistory.length >= 10 ? searchHistory.length - 10 : 0,
+      searchHistory.length
+    );
+    localStorage.setItem('searchHistory', JSON.stringify(slicedSearchHistory));
+    console.log('home.slicedSearchHistory', slicedSearchHistory);
+  }, [searchHistory]);
 
   const scrollTo = (target: string): void => {
     document.getElementById(target)!.scrollIntoView({ behavior: 'smooth' });
@@ -111,6 +134,7 @@ const Home: React.FC = ({ randomCard }) => {
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               isErrorShowing={isErrowShowing}
+              searchHistory={searchHistory}
             />
           </div>
         </div>

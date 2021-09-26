@@ -50,7 +50,14 @@ const Home: React.FC = ({ randomCard }) => {
         if (result.length > 0) {
           scrollTo('search-results');
           setIsErrorShowing(false);
-          setSearchHistory([...searchHistory, searchTerm]);
+
+          // Limit search history to last 10 searches
+          const slicedSearchHistory = searchHistory.slice(
+            searchHistory.length >= 9 ? searchHistory.length - 9 : 0,
+            searchHistory.length
+          );
+
+          setSearchHistory([...slicedSearchHistory, searchTerm]);
         } else {
           setIsErrorShowing(true);
         }
@@ -73,14 +80,9 @@ const Home: React.FC = ({ randomCard }) => {
 
   // Set search history to local storage whenever it changes
   useEffect(() => {
-    // debugger;
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
 
-    const slicedSearchHistory = searchHistory.slice(
-      searchHistory.length >= 10 ? searchHistory.length - 10 : 0,
-      searchHistory.length
-    );
-    localStorage.setItem('searchHistory', JSON.stringify(slicedSearchHistory));
-    console.log('home.slicedSearchHistory', slicedSearchHistory);
+    console.log('home.searchHistory', searchHistory);
   }, [searchHistory]);
 
   const scrollTo = (target: string): void => {

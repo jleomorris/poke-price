@@ -10,6 +10,8 @@ import Features from '../components/Features';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
+const sets = ['base1', 'base2'];
+
 const Home: React.FC = ({ randomCard }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchedCards, setSearchedCards] = useState([]);
@@ -23,15 +25,19 @@ const Home: React.FC = ({ randomCard }) => {
 
     if (searchTerm.length > 0) {
       const fetchSearchTerm = async () => {
-        const res = await fetch(
-          `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`,
-          {
-            method: 'GET',
-            headers: {
-              'X-Api-Key': process.env.NEXT_PUBLIC_POKEMON_TCG_KEY!,
-            },
-          }
-        );
+        // By default request is for cards by name
+        let apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`;
+        // If search term is a set request is for cards by set
+        if (sets.includes(searchTerm)) {
+          apiUrl = `https://api.pokemontcg.io/v2/cards?q=set.id:${searchTerm}`;
+        }
+
+        const res = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'X-Api-Key': process.env.NEXT_PUBLIC_POKEMON_TCG_KEY!,
+          },
+        });
 
         if (!res.ok) {
           const message = `An error has occured: ${res.status}`;
@@ -140,13 +146,22 @@ const Home: React.FC = ({ randomCard }) => {
             />
           </div>
         </div>
-        <div className='background-img relative xl:w-5/12 min-h-screen border border-red'>
+        <div className='background-img flex flex-col justify-end relative xl:w-5/12 min-h-screen border border-red'>
           <img
             className='object-cover h-full w-full absolute top-0 left-0 '
             src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
             alt='home background'
           />
-          <div className='image-overlay h-full w-full bg-gradient-to-t from-white absolute top-0 left-0'></div>
+          <div className='image-overlay h-full w-full bg-gradient-to-t from-white absolute top-0 left-0' />
+          <div className='sets mb-40 border border-red z-20'>
+            {sets.map((set) => (
+              <button key={set} onClick={() => setSearchTerm(set)}>
+                <p className='border border-black ml-0 mt-0 m-1 py-1 px-3 rounded-full'>
+                  {set}
+                </p>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
       {searchedCards.length > 0 && (

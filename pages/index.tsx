@@ -10,7 +10,49 @@ import Features from '../components/Features';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
-const sets = ['base1', 'base2'];
+const sets = [
+  { name: 'Detective Pikachu', id: 'det1' },
+  { name: 'Dragons Exalted', id: 'bw6' },
+  { name: 'Heart Gold & Soul Silver', id: 'hgss1' },
+  { name: 'Dragon Majesty', id: 'sm75' },
+  { name: 'Crimson Invasion', id: 'sm4' },
+  { name: 'Hidden Fates', id: 'sm115' },
+  { name: 'Team Up', id: 'sm9' },
+  { name: 'Shiny Vault', id: 'sma' },
+  { name: 'Legendary Treasures', id: 'bw11' },
+  { name: 'Pop Series 5', id: 'pop5' },
+  { name: 'Evolutions', id: 'xy12' },
+  { name: 'Boundaries Crossed', id: 'bw7' },
+  { name: 'Burning Shadows', id: 'sm3' },
+  { name: 'Team Rocket Returns', id: 'ex7' },
+  { name: 'Rebel Clash', id: 'swsh2' },
+  { name: 'Vivid Voltage', id: 'swsh4' },
+  { name: 'Base', id: 'base1' },
+  { name: 'Crystal Guardians', id: 'ex14' },
+  { name: 'Holon Phantoms', id: 'ex13' },
+  { name: 'Team Rocket', id: 'base5' },
+  { name: 'Power Keepers', id: 'ex16' },
+  { name: 'Arceus', id: 'pl4' },
+  { name: 'Gym Challenge', id: 'gym2' },
+  { name: 'Gym Heroes', id: 'gym1' },
+  { name: 'Firered & Leafgreen', id: 'ex6' },
+  { name: 'Expedition Base Set', id: 'ecard1' },
+  { name: 'Base Set 2', id: 'base4' },
+  { name: 'Legendary Collection', id: 'base6' },
+  { name: 'Secret Wonders', id: 'dp3' },
+  { name: 'XY Black Star Promos', id: 'xyp' },
+  { name: 'Mysterious Treasures', id: 'dp2' },
+  { name: 'Breakpoint', id: 'xy9' },
+  { name: 'Generations', id: 'g1' },
+  { name: 'Dragon', id: 'ex3' },
+  { name: 'Stormfront', id: 'dp7' },
+  { name: 'SWSH Black Star Promos', id: 'swshp' },
+  { name: 'Evolving Skies', id: 'swsh7' },
+  { name: 'Call Of Legends', id: 'col1' },
+  { name: 'Deoxys', id: 'ex8' },
+  { name: 'Skyridge', id: 'ecard3' },
+  { name: 'Ancient Origins', id: 'xy7' },
+];
 
 const Home: React.FC = ({ randomCard }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -25,12 +67,14 @@ const Home: React.FC = ({ randomCard }) => {
 
     if (searchTerm.length > 0) {
       const fetchSearchTerm = async () => {
-        // By default request is for cards by name
+        // By default request is for cards by name - q=name
         let apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`;
-        // If search term is a set request is for cards by set
-        if (sets.includes(searchTerm)) {
-          apiUrl = `https://api.pokemontcg.io/v2/cards?q=set.id:${searchTerm}`;
-        }
+        // If search term is a set - query=set.id
+        sets.forEach((set) => {
+          if (set.name === searchTerm) {
+            apiUrl = `https://api.pokemontcg.io/v2/cards?q=set.id:${set.id}`;
+          }
+        });
 
         const res = await fetch(apiUrl, {
           method: 'GET',
@@ -68,10 +112,6 @@ const Home: React.FC = ({ randomCard }) => {
           setIsErrorShowing(true);
         }
       });
-      // .then((result) => {
-      //   console.log('RESULT', result);
-      //   scrollTo('search-results');
-      // });
     }
   }, [searchTerm]);
 
@@ -98,15 +138,21 @@ const Home: React.FC = ({ randomCard }) => {
   const renderCards = () => {
     const cards = (searchedCards.length > 0 && searchedCards) || randomCard;
 
-    // debugger;
+    const ids = [];
 
-    return cards.map((card) => (
-      <>
-        <div className='mx-5 my-10 w-full xl:w-5/12'>
-          <PriceCard key={card.name} card={card} />
-        </div>
-      </>
-    ));
+    return cards.map((card, index) => {
+      ids.push(card.id.split('-')[0]);
+      if (index === cards.length - 1) {
+        console.log(ids);
+      }
+      return (
+        <>
+          <div className='mx-5 my-10 w-full xl:w-5/12'>
+            <PriceCard key={card.name} card={card} />
+          </div>
+        </>
+      );
+    });
   };
 
   const renderRandomCard = () => {
@@ -131,7 +177,7 @@ const Home: React.FC = ({ randomCard }) => {
       </Head>
 
       <section className='w-full xl:min-h-screen relative flex justify-start items-start'>
-        <div className='p-20 w-full xl:w-7/12 flex flex-col justify-between border min-h-screen border-blue-500 relative'>
+        <div className='p-20 w-full xl:w-6/12 flex flex-col justify-between border min-h-screen border-blue-500 relative'>
           <h1 className='text-6xl text-black md:text-8xl mb-10 xl:w-3/4 font-bold relative'>
             Quickly find a card price with{' '}
             <span className='text-blue-400'>PokePrice</span>
@@ -146,18 +192,18 @@ const Home: React.FC = ({ randomCard }) => {
             />
           </div>
         </div>
-        <div className='background-img flex flex-col justify-end relative xl:w-5/12 min-h-screen border border-red'>
+        <div className='background-img flex flex-col justify-end relative xl:w-6/12 min-h-screen border border-red'>
           <img
             className='object-cover h-full w-full absolute top-0 left-0 '
             src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
             alt='home background'
           />
           <div className='image-overlay h-full w-full bg-gradient-to-t from-white absolute top-0 left-0' />
-          <div className='sets mb-40 border border-red z-20'>
+          <div className='sets mb-5 z-20'>
             {sets.map((set) => (
-              <button key={set} onClick={() => setSearchTerm(set)}>
-                <p className='border border-black ml-0 mt-0 m-1 py-1 px-3 rounded-full'>
-                  {set}
+              <button key={set.id} onClick={() => setSearchTerm(set.name)}>
+                <p className=' bg-blue-400 font-bold opacity-80 hover:opacity-100 shadow-md m-1 py-1 px-3 rounded-full'>
+                  {set.name}
                 </p>
               </button>
             ))}

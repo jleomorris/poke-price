@@ -45,7 +45,10 @@ const CardSearch: React.FC<Iprops> = ({
   };
 
   return (
-    <div className='my-10 w-full bg-black bg-opacity-90 py-10 px-14 rounded-3xl relative'>
+    <div
+      style={{ width: '800px' }}
+      className='my-10 bg-black bg-opacity-90 py-10 px-14 rounded-3xl relative'
+    >
       <h2 className='text-4xl text-white text-center mb-3 font-thin'>Search</h2>
       <div className='relative'>
         <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200'>

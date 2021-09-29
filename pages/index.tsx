@@ -3,6 +3,7 @@ import { useState, useEffect, DOMElement } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import homeStyles from '../styles/Home.module.css';
+import Link from 'next/link';
 // Components
 import PriceCard from '../components/PriceCard';
 import CardSearch from '../components/CardSearch';
@@ -175,6 +176,15 @@ const Home: React.FC = ({ randomCard }) => {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
+      <Link
+        href={{
+          pathname: '/search',
+          query: { searchTest: 'bulbasaur' },
+        }}
+      >
+        <a>Search page</a>
+      </Link>
 
       <section className='w-full xl:min-h-screen relative flex justify-start items-start'>
         <div className='p-20 w-full xl:w-6/12 flex flex-col justify-between border min-h-screen border-blue-500 relative'>

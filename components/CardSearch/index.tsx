@@ -1,4 +1,7 @@
 import { SetStateAction, useState, useEffect } from 'react';
+// Next
+import Link from 'next/link';
+import Router from 'next/router';
 
 interface Iprops {
   searchTerm: string;
@@ -18,8 +21,19 @@ const CardSearch: React.FC<Iprops> = ({
   const submitHandler = () => {
     setSearchTerm(value);
     setValue('');
+
     // e.preventDefault();
   };
+
+  useEffect(() => {
+    console.log('CardSearch.searchTerm', searchTerm);
+    if (searchTerm !== '') {
+      Router.push({
+        pathname: '/results',
+        query: { searched: searchTerm },
+      });
+    }
+  }, [searchTerm]);
 
   const inputKeyHandler = (e) => {
     if (e.keyCode === 13) {
@@ -45,11 +59,8 @@ const CardSearch: React.FC<Iprops> = ({
   };
 
   return (
-    <div
-      style={{ width: '800px' }}
-      className='my-10 bg-black bg-opacity-90 py-10 px-14 rounded-3xl relative'
-    >
-      <h2 className='text-4xl text-white text-center mb-3 font-thin'>Search</h2>
+    <div className='my-10 py-10 px-14 rounded-3xl relative'>
+      <h1 className='text-4xl text-center mb-3 font-thin'>Search</h1>
       <div className='relative'>
         <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200'>
           <button onClick={submitHandler}>
@@ -95,7 +106,7 @@ const CardSearch: React.FC<Iprops> = ({
       )}
       {searchHistory && (
         <>
-          <h2 className='mt-5 mb-3 text-white'>Previous searches</h2>
+          <h2 className='mt-5 mb-3'>Previous searches</h2>
           {renderSearchHistory()}
         </>
       )}

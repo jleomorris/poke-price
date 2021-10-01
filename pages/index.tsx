@@ -24,7 +24,7 @@ const Home: React.FC = ({ randomCard }) => {
 
       <section className='w-full xl:min-h-screen relative flex justify-start items-start'>
         <div className='bg-blackLighter p-20 w-full xl:w-6/12 flex flex-col justify-between min-h-screen relative'>
-          <h1 className='text-6xl text-white md:text-8xl mb-10 xl:w-3/4 font-bold relative'>
+          <h1 className='text-6xl text-white md:text-8xl mb-10 font-bold relative'>
             Quickly find a card price with{' '}
             <span className='text-blue-400'>PokePrice</span>
           </h1>
@@ -32,8 +32,8 @@ const Home: React.FC = ({ randomCard }) => {
         </div>
         <div className='background-img flex flex-col justify-end relative xl:w-6/12 min-h-screen'>
           <img
-            className='object-cover h-full w-full absolute top-0 left-0 '
-            src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
+            className='object-cover h-full w-full absolute top-0 left-0'
+            src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633124106/Pokemon-tcg-price-guide/home-background.jpg'
             alt='home background'
           />
           <div className='image-overlay h-full w-full bg-gradient-to-r from-blackLighter absolute top-0 left-0' />

@@ -30,9 +30,9 @@ const Search = () => {
   }, [searchHistory]);
 
   return (
-    <div className='bg-gradient-to-r from-blue-500 to-blue-200 min-w-screen min-h-screen'>
+    <div className='bg-blackLighter min-w-screen min-h-screen'>
       <PageContainer>
-        <div className='search flex flex-col justify-center items-center border border-red-500 '>
+        <div className='search flex flex-col justify-center items-center'>
           <div className='w-2/3'>
             <CardSearch
               searchTerm={searchTerm}

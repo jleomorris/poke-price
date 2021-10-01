@@ -23,24 +23,24 @@ const Home: React.FC = ({ randomCard }) => {
       </Head>
 
       <section className='w-full xl:min-h-screen relative flex justify-start items-start'>
-        <div className='p-20 w-full xl:w-6/12 flex flex-col justify-between border min-h-screen border-blue-500 relative'>
-          <h1 className='text-6xl text-black md:text-8xl mb-10 xl:w-3/4 font-bold relative'>
+        <div className='bg-blackLighter p-20 w-full xl:w-6/12 flex flex-col justify-between min-h-screen relative'>
+          <h1 className='text-6xl text-white md:text-8xl mb-10 xl:w-3/4 font-bold relative'>
             Quickly find a card price with{' '}
             <span className='text-blue-400'>PokePrice</span>
           </h1>
           <Features />
         </div>
-        <div className='background-img flex flex-col justify-end relative xl:w-6/12 min-h-screen border border-red'>
+        <div className='background-img flex flex-col justify-end relative xl:w-6/12 min-h-screen'>
           <img
             className='object-cover h-full w-full absolute top-0 left-0 '
             src='https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmedia.japanpowered.com%2Fimages%2Fpokemon-trading-cards.jpg&f=1&nofb=1'
             alt='home background'
           />
-          <div className='image-overlay h-full w-full bg-gradient-to-t from-white absolute top-0 left-0' />
+          <div className='image-overlay h-full w-full bg-gradient-to-r from-blackLighter absolute top-0 left-0' />
           <div className='inline-block mx-auto my-auto'>
             <Link href={{ pathname: '/search' }}>
-              <a className='relative rounded-full bg-black bg-opacity-90 px-10 py-5 text-white text-center'>
-                Go to search
+              <a className='relative rounded-xl bg-blackLighter hover:text-blue-400 border-2 hover:border-blue-400 px-10 py-5 text-white text-center'>
+                Get Started &#8594;
               </a>
             </Link>
           </div>

@@ -7,6 +7,14 @@ module.exports = {
         '30%': '30%',
       },
     },
+    backgroundColor: (theme) => ({
+      ...theme('colors'),
+      blackLighter: '#1A1A1A',
+    }),
+    gradientColorStops: (theme) => ({
+      ...theme('colors'),
+      blackLighter: '#1A1A1A',
+    }),
   },
   variants: {
     extend: {},

@@ -33,7 +33,7 @@ const Search = () => {
     <div className='bg-blackLighter min-w-screen min-h-screen'>
       <PageContainer>
         <div className='search flex flex-col justify-center items-center'>
-          <div className='w-2/3'>
+          <div className='w-1/2'>
             <CardSearch
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}

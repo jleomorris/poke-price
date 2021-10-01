@@ -24,7 +24,8 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
 
   const [searchTerm, setSearchTerm] = useState<string | string[]>('');
   const [isErrowShowing, setIsErrorShowing] = useState(false);
-  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [searchHistory, setSearchHistory] = useState<string[]>(['']);
+  const [isSearchHistorySet, setIsSearchHistorySet] = useState(false);
   // const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -34,20 +35,32 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
     }
   }, []);
 
-  // On app first render set search history state based on local storage
+  // Set search history state based on local storage on component render
   useEffect(() => {
     const localSearchHistory = localStorage.getItem('searchHistory');
 
     if (localSearchHistory) {
       setSearchHistory(JSON.parse(localSearchHistory));
+      setIsSearchHistorySet(true);
     }
   }, []);
+
+  // Once searchHistory is set from local storage add the search term to it
+  useEffect(() => {
+    if (isSearchHistorySet === true) {
+      // Limit search history to last 10 searches
+      const slicedSearchHistory: string[] = searchHistory.slice(
+        searchHistory.length >= 9 ? searchHistory.length - 9 : 0,
+        searchHistory.length
+      );
+
+      setSearchHistory([...slicedSearchHistory, searched]);
+    }
+  }, [isSearchHistorySet]);
 
   // Set search history to local storage whenever it changes
   useEffect(() => {
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-
-    console.log('home.searchHistory', searchHistory);
   }, [searchHistory]);
 
   const renderCards = () => {
@@ -62,7 +75,7 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
       }
       return (
         <>
-          <div className='mx-5 my-10 w-full xl:w-5/12'>
+          <div key={card.name} className='mx-5 my-10 w-full xl:w-5/12'>
             <PriceCard key={card.name} card={card} />
           </div>
         </>

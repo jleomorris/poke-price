@@ -12,18 +12,21 @@ import { scrollTo } from '../../utils';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
-const Results = () => {
+interface IProps {
+  searchedCards: {}[];
+}
+
+const Results: React.FC<IProps> = ({ searchedCards }) => {
   const router = useRouter();
   const {
     query: { searched },
   } = router;
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchedCards, setSearchedCards] = useState<{}[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string | string[]>('');
   const [isErrowShowing, setIsErrorShowing] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     if (searched) {
@@ -40,64 +43,6 @@ const Results = () => {
     }
   }, []);
 
-  // When search term is set fetch data
-  useEffect(() => {
-    if (searchTerm.length > 0) {
-      setIsLoading(true);
-      const fetchSearchTerm = async () => {
-        // By default request is for cards by name - q=name
-        let apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`;
-        // If search term is a set - query=set.id
-        sets.forEach((set) => {
-          if (set.name === searchTerm) {
-            apiUrl = `https://api.pokemontcg.io/v2/cards?q=set.id:${set.id}`;
-          }
-        });
-
-        const res = await fetch(apiUrl, {
-          method: 'GET',
-          headers: {
-            'X-Api-Key': process.env.NEXT_PUBLIC_POKEMON_TCG_KEY!,
-          },
-        });
-
-        if (res.ok) {
-          setIsLoading(false);
-        }
-
-        if (!res.ok) {
-          const message = `An error has occured: ${res.status}`;
-          // throw new Error(message);
-          setIsLoading(false);
-        }
-
-        const data = await res.json();
-        const cards = await data.data;
-
-        setIsLoaded(true);
-        return cards;
-      };
-
-      fetchSearchTerm().then((result) => {
-        setSearchedCards(result);
-        if (result.length > 0) {
-          // scrollTo('search-results');
-          setIsErrorShowing(false);
-
-          // Limit search history to last 10 searches
-          const slicedSearchHistory = searchHistory.slice(
-            searchHistory.length >= 9 ? searchHistory.length - 9 : 0,
-            searchHistory.length
-          );
-
-          setSearchHistory([...slicedSearchHistory, searchTerm]);
-        } else {
-          setIsErrorShowing(true);
-        }
-      });
-    }
-  }, [searchTerm]);
-
   // Set search history to local storage whenever it changes
   useEffect(() => {
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
@@ -108,7 +53,7 @@ const Results = () => {
   const renderCards = () => {
     const cards = searchedCards.length > 0 ? searchedCards : '';
 
-    const ids = [];
+    const ids: string[] = [];
 
     return cards.map((card, index) => {
       ids.push(card.id.split('-')[0]);
@@ -129,7 +74,7 @@ const Results = () => {
     <div className='bg-blackLighter min-w-screen min-h-screen'>
       <PageContainer>
         <div className='results'>
-          {searchedCards.length === 0 && isLoaded && (
+          {searchedCards.length === 0 && (
             <section
               id='search-results'
               className={`w-full flex flex-wrap xl:justify-center items-start relative`}
@@ -141,7 +86,7 @@ const Results = () => {
               </h2>
             </section>
           )}
-          {searchedCards.length > 0 && isLoaded && (
+          {searchedCards.length > 0 && (
             <section
               id='search-results'
               className={`w-full flex flex-wrap xl:justify-center items-start relative`}
@@ -170,5 +115,37 @@ const Results = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(context) {
+  console.log('context.query.searched ===', context.query.searched);
+  const searchTerm = context.query.searched;
+
+  // By default request is for cards by name - q=name
+  let apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`;
+
+  // If search term is a set - query=set.id
+  sets.forEach((set) => {
+    if (set.name === searchTerm) {
+      apiUrl = `https://api.pokemontcg.io/v2/cards?q=set.id:${set.id}`;
+    }
+  });
+
+  const res = await fetch(apiUrl, {
+    method: 'GET',
+    headers: {
+      'X-Api-Key': process.env.NEXT_PUBLIC_POKEMON_TCG_KEY!,
+    },
+  });
+
+  if (!res.ok) {
+    const message = `An error has occured: ${res.status}`;
+    console.log('results.getServerSideProps.fetchError', message);
+  }
+
+  const data = await res.json();
+  const searchedCards = await data.data;
+
+  return { props: { searchedCards } };
+}
 
 export default Results;

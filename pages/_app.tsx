@@ -2,11 +2,16 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import '../styles/globals.css';
+// Components
+import Nav from '../components/Nav';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <Component {...pageProps} />
+      <div className='overflow-hidden'>
+        <Nav />
+        <Component {...pageProps} />
+      </div>
     </Provider>
   );
 }

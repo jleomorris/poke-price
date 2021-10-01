@@ -44,14 +44,12 @@ const CardSearch: React.FC<Iprops> = ({
   const renderSearchHistory = () => {
     const searchHistoryReversed = searchHistory.slice().reverse();
 
-    return searchHistoryReversed.map((item) => (
+    return searchHistoryReversed.map((item, index) => (
       <>
         <button onClick={() => setSearchTerm(item)}>
-          <p
-            className='capitalize border hover:text-blue-400  text-white hover:border-blue-400 border-white py-2 px-4 rounded-full ml-0 m-2'
-            key={item}
-          >
+          <p className='text-blue-400 mr-1' key={item}>
             {item}
+            {index !== searchHistoryReversed.length - 1 ? ',' : ''}
           </p>
         </button>
       </>
@@ -59,7 +57,7 @@ const CardSearch: React.FC<Iprops> = ({
   };
 
   return (
-    <div className='my-10 py-10 px-14 rounded-3xl relative'>
+    <div className='mb-20 relative'>
       <h1 className='text-4xl text-center mb-3 font-thin text-white'>Search</h1>
       <div className='relative'>
         <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200'>
@@ -93,12 +91,12 @@ const CardSearch: React.FC<Iprops> = ({
           onKeyUp={(e) => inputKeyHandler(e)}
         />
       </div>
-      <button
+      {/* <button
         className='py-3 px-8 bg-white shadow-md rounded-full mx-auto block'
         onClick={submitHandler}
       >
         Submit
-      </button>
+      </button> */}
       {isErrorShowing && (
         <p className='mt-5 text-red-500 font-bold text-center'>
           No results found, please try another search.
@@ -106,8 +104,10 @@ const CardSearch: React.FC<Iprops> = ({
       )}
       {searchHistory && (
         <>
-          <h2 className='mt-5 mb-3 text-white'>Previous searches</h2>
+          <p className='mr-2 text-white inline-block'>Previous searches: </p>
+          {/* <div className='inline-block'> */}
           {renderSearchHistory()}
+          {/* </div> */}
         </>
       )}
     </div>

@@ -60,7 +60,7 @@ const CardSearch: React.FC<Iprops> = ({
 
   return (
     <div className='my-10 py-10 px-14 rounded-3xl relative'>
-      <h1 className='text-4xl text-center mb-3 font-thin'>Search</h1>
+      <h1 className='text-4xl text-center mb-3 font-thin text-white'>Search</h1>
       <div className='relative'>
         <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200'>
           <button onClick={submitHandler}>
@@ -106,7 +106,7 @@ const CardSearch: React.FC<Iprops> = ({
       )}
       {searchHistory && (
         <>
-          <h2 className='mt-5 mb-3'>Previous searches</h2>
+          <h2 className='mt-5 mb-3 text-white'>Previous searches</h2>
           {renderSearchHistory()}
         </>
       )}

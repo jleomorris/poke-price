@@ -16,16 +16,16 @@ const features = [
 const Features = () => {
   return (
     <div>
-      <section className='features flex flex-wrap border border-blue-500 w-full'>
+      <section className='features flex flex-wrap  w-full'>
         {features.map((feature) => (
           <div
             key={feature.title}
-            className='feature flex flex-col items-center border border-red-500 m-2 w-30% text-center'
+            className='feature flex flex-col items-center m-2 w-30% text-center'
           >
-            <div className='h-20 border border-green-500'>
+            <div className='h-20'>
               <img src={feature.img} alt='feature' className='h-full' />
             </div>
-            <p className='mt-5 text-2xl'>{feature.title}</p>
+            <p className='mt-5 text-2xl text-white'>{feature.title}</p>
           </div>
         ))}
       </section>

@@ -4,7 +4,7 @@ const features = [
     img: 'https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1632359543/Pokemon-tcg-price-guide/TCG-player-logo.png',
   },
   {
-    title: 'Find cards by name, type, release date, legality, and more',
+    title: 'Find cards by name and set',
     img: 'https://res.cloudinary.com/jleomorris/image/upload/v1632359656/Pokemon-tcg-price-guide/magnifying-glass.svg',
   },
   {
@@ -20,7 +20,7 @@ const Features = () => {
         {features.map((feature) => (
           <div
             key={feature.title}
-            className='feature flex flex-col items-center m-2 w-30% text-center'
+            className='feature flex flex-col items-center m-2 w-30% text-center pb-40'
           >
             <div className='h-20'>
               <img src={feature.img} alt='feature' className='h-full' />

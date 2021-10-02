@@ -8,6 +8,7 @@ import Image from 'next/image';
 import CardSearch from '../../components/CardSearch';
 import SetGallery from '../../components/SetGallery';
 import PageContainer from '../../components/PageContainer';
+import PageBanner from '../../components/PageBanner';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -33,14 +34,7 @@ const Search = () => {
   return (
     <div className='bg-blackLighter min-w-screen min-h-screen'>
       <div className='search flex flex-col justify-center items-center'>
-        <div className='relative h-96 w-full'>
-          <Image
-            className='h-full w-full absolute top-0 left-0'
-            layout='fill'
-            objectFit='cover'
-            src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633172502/Pokemon-tcg-price-guide/home-background.jpg'
-            alt='home background'
-          />
+        <PageBanner linkTarget='home'>
           <div className='-bottom-20 -translate-x-1/2 absolute bg-gray-100 shadow-xl left-1/2 p-10 rounded-xl transform w-1/2 border border-gray-700'>
             <CardSearch
               searchTerm={searchTerm}
@@ -49,7 +43,7 @@ const Search = () => {
               searchHistory={searchHistory}
             />
           </div>
-        </div>
+        </PageBanner>
         <PageContainer>
           <div className='w-full mt-20 mb-10'>
             <SetGallery setSearchTerm={setSearchTerm} />

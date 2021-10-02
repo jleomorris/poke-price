@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 // Next
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 // Components
 import PageContainer from '../../components/PageContainer';
 import PriceCard from '../../components/PriceCard';
+import Pagination from '../../components/Pagination';
+import PageBanner from '../../components/PageBanner';
 // Other
 import { sets } from '../../setData';
 // Utils
@@ -31,6 +34,16 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   const CARD_LIMIT = 8;
   const [paginatedData, setPaginatedData] = useState();
   const [currentPage, setCurrentpage] = useState<number>(1);
+  const [pageCount, setPageCount] = useState<number>(0);
+
+  // On initial render set page count
+  useEffect(() => {
+    const pageCount = Math.ceil(searchedCardData.length / CARD_LIMIT);
+
+    // debugger;
+
+    setPageCount(pageCount);
+  }, [searchedCardData.length]);
 
   // On initial render paginate data
   useEffect(() => {
@@ -99,6 +112,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
 
   return (
     <div className='bg-blackLighter min-w-screen min-h-screen'>
+      <PageBanner linkTarget='search' />
       <PageContainer>
         <div className='results'>
           {searchedCardData.length === 0 && (
@@ -130,25 +144,12 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
                 renderCards()}
             </section>
           )}
-          <div className='my-5 text-white'>
-            <Link
-              href={{
-                pathname: '/search',
-              }}
-            >
-              <a className='text-white border border-white rounded-xl py-4 px-6'>
-                &#8592; Back to search
-              </a>
-            </Link>
-            <div className='border border-red-300 my-10'>
-              <button onClick={() => setCurrentpage(currentPage - 1)}>
-                Previous page
-              </button>
-              <button onClick={() => setCurrentpage(currentPage + 1)}>
-                Next page
-              </button>
-              <div>{currentPage}</div>
-            </div>
+          <div className='my-5 text-white flex justify-center'>
+            <Pagination
+              currentPage={currentPage}
+              setCurrentPage={setCurrentpage}
+              pageCount={pageCount}
+            />
           </div>
         </div>
       </PageContainer>

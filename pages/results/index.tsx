@@ -16,7 +16,7 @@ interface IProps {
   searchedCards: {}[];
 }
 
-const Results: React.FC<IProps> = ({ searchedCards }) => {
+const Results: React.FC<IProps> = ({ searchedCardData }) => {
   const router = useRouter();
   const {
     query: { searched },
@@ -28,6 +28,19 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
   const [isSearchHistorySet, setIsSearchHistorySet] = useState(false);
   // const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const CARD_LIMIT = 8;
+  const [paginatedData, setPaginatedData] = useState();
+  const [currentPage, setCurrentpage] = useState<number>(1);
+
+  // On initial render paginate data
+  useEffect(() => {
+    const slicedData = searchedCardData.slice(
+      currentPage * CARD_LIMIT - CARD_LIMIT,
+      currentPage * CARD_LIMIT
+    );
+    // debugger;
+    setPaginatedData(slicedData);
+  }, [currentPage]);
 
   useEffect(() => {
     if (searched) {
@@ -64,7 +77,8 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
   }, [searchHistory]);
 
   const renderCards = () => {
-    const cards = searchedCards.length > 0 ? searchedCards : '';
+    const cards =
+      paginatedData && paginatedData.length > 0 ? paginatedData : '';
 
     const ids: string[] = [];
 
@@ -87,7 +101,7 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
     <div className='bg-blackLighter min-w-screen min-h-screen'>
       <PageContainer>
         <div className='results'>
-          {searchedCards.length === 0 && (
+          {searchedCardData.length === 0 && (
             <section
               id='search-results'
               className={`w-full flex flex-wrap xl:justify-center items-start relative`}
@@ -99,20 +113,24 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
               </h2>
             </section>
           )}
-          {searchedCards.length > 0 && (
+          {searchedCardData.length > 0 && (
             <section
               id='search-results'
               className={`w-full flex flex-wrap xl:justify-center items-start relative`}
             >
               <h2 className='text-3xl md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
-                <span className='text-blue-400'>{searchedCards.length} </span>
+                <span className='text-blue-400'>
+                  {searchedCardData.length}{' '}
+                </span>
                 {`results for `}
                 <span className='text-blue-400'>{`"${searchTerm}"`}</span>
               </h2>
-              {renderCards()}
+              {paginatedData !== undefined &&
+                paginatedData.length > 0 &&
+                renderCards()}
             </section>
           )}
-          <div className='my-5'>
+          <div className='my-5 text-white'>
             <Link
               href={{
                 pathname: '/search',
@@ -122,6 +140,15 @@ const Results: React.FC<IProps> = ({ searchedCards }) => {
                 &#8592; Back to search
               </a>
             </Link>
+            <div className='border border-red-300 my-10'>
+              <button onClick={() => setCurrentpage(currentPage - 1)}>
+                Previous page
+              </button>
+              <button onClick={() => setCurrentpage(currentPage + 1)}>
+                Next page
+              </button>
+              <div>{currentPage}</div>
+            </div>
           </div>
         </div>
       </PageContainer>
@@ -156,9 +183,9 @@ export async function getServerSideProps(context) {
   }
 
   const data = await res.json();
-  const searchedCards = await data.data;
+  const searchedCardData = await data.data;
 
-  return { props: { searchedCards } };
+  return { props: { searchedCardData } };
 }
 
 export default Results;

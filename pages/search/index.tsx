@@ -1,10 +1,11 @@
-// Components
-import CardSearch from '../../components/CardSearch';
 // React
 import { useState, useEffect } from 'react';
 // Next
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+// Components
+import CardSearch from '../../components/CardSearch';
 import SetGallery from '../../components/SetGallery';
 import PageContainer from '../../components/PageContainer';
 
@@ -31,9 +32,16 @@ const Search = () => {
 
   return (
     <div className='bg-blackLighter min-w-screen min-h-screen'>
-      <PageContainer>
-        <div className='search flex flex-col justify-center items-center'>
-          <div className='w-1/2'>
+      <div className='search flex flex-col justify-center items-center'>
+        <div className='relative h-96 w-full'>
+          <Image
+            className='h-full w-full absolute top-0 left-0'
+            layout='fill'
+            objectFit='cover'
+            src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633172502/Pokemon-tcg-price-guide/home-background.jpg'
+            alt='home background'
+          />
+          <div className='-bottom-20 -translate-x-1/2 absolute bg-gray-100 shadow-xl left-1/2 p-10 rounded-xl transform w-1/2 border border-gray-700'>
             <CardSearch
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
@@ -41,11 +49,11 @@ const Search = () => {
               searchHistory={searchHistory}
             />
           </div>
-          <div>
+        </div>
+        <PageContainer>
+          <div className='w-full mt-20 mb-10'>
             <SetGallery setSearchTerm={setSearchTerm} />
           </div>
-        </div>
-        <div className='my-5'>
           <Link
             href={{
               pathname: '/',
@@ -55,8 +63,8 @@ const Search = () => {
               &#8592; Back to home
             </a>
           </Link>
-        </div>
-      </PageContainer>
+        </PageContainer>
+      </div>
     </div>
   );
 };

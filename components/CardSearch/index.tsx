@@ -57,10 +57,10 @@ const CardSearch: React.FC<Iprops> = ({
   };
 
   return (
-    <div className='mb-20 relative'>
-      <h1 className='text-4xl text-center mb-3 font-thin text-white'>Search</h1>
+    <div className='w-full relative'>
+      <h1 className='text-4xl text-center mb-3 font-thin'>Search</h1>
       <div className='relative'>
-        <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200'>
+        <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200 '>
           <button onClick={submitHandler}>
             <svg
               width='23'
@@ -84,7 +84,7 @@ const CardSearch: React.FC<Iprops> = ({
         </div>
         <input
           type='text'
-          className='w-full my-3 p-3 rounded-full pl-5 shadow-inner'
+          className='w-full my-3 p-3 rounded-full pl-5 shadow-inner border border-gray-400'
           placeholder='Enter card name or number'
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -104,7 +104,7 @@ const CardSearch: React.FC<Iprops> = ({
       )}
       {searchHistory && (
         <>
-          <p className='mr-2 text-white inline-block'>Previous searches: </p>
+          <p className='mr-2 inline-block'>Previous searches: </p>
           {/* <div className='inline-block'> */}
           {renderSearchHistory()}
           {/* </div> */}

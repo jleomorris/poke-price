@@ -33,7 +33,7 @@ const Home: React.FC = ({ randomCard }) => {
         <div className='background-img flex flex-col justify-end relative xl:w-6/12 min-h-screen'>
           <img
             className='object-cover h-full w-full absolute top-0 left-0'
-            src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633124106/Pokemon-tcg-price-guide/home-background.jpg'
+            src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633172502/Pokemon-tcg-price-guide/home-background.jpg'
             alt='home background'
           />
           <div className='image-overlay h-full w-full bg-gradient-to-r from-blackLighter absolute top-0 left-0' />

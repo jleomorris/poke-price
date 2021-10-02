@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 // Next
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -35,6 +35,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   const [paginatedData, setPaginatedData] = useState();
   const [currentPage, setCurrentpage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(0);
+  const resultsRef = useRef();
 
   // On initial render set page count
   useEffect(() => {
@@ -129,6 +130,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
           )}
           {searchedCardData.length > 0 && (
             <section
+              ref={resultsRef}
               id='search-results'
               className={`w-full flex flex-wrap xl:justify-center items-start relative`}
             >
@@ -149,6 +151,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
               currentPage={currentPage}
               setCurrentPage={setCurrentpage}
               pageCount={pageCount}
+              resultsRef={resultsRef}
             />
           </div>
         </div>

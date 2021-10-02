@@ -1,12 +1,29 @@
-const Pagination = ({ currentPage, setCurrentPage, pageCount }) => {
+// Utils
+import { scrollTo } from '../../utils';
+
+const Pagination = ({ currentPage, setCurrentPage, pageCount, resultsRef }) => {
   const buttonStyles = 'border border-white rounded-full py-2 px-4';
+
+  const previousPageHandler = () => {
+    setCurrentPage(currentPage - 1);
+    resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+    // window.scrollTo(0, 0);
+    // scrollTo('search-results');
+  };
+
+  const nextPageHandler = () => {
+    setCurrentPage(currentPage + 1);
+    resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+    // window.scrollTo(0, 0);
+    // scrollTo('search-results');
+  };
 
   return (
     <div className='pagination space-x-3 flex justify-center items-center'>
       <>
         <button
           className={`${buttonStyles} ${currentPage === 1 ? 'opacity-30' : ''}`}
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={previousPageHandler}
           disabled={currentPage === 1}
         >
           Previous
@@ -19,7 +36,7 @@ const Pagination = ({ currentPage, setCurrentPage, pageCount }) => {
           className={`${buttonStyles} ${
             currentPage === pageCount ? 'opacity-30' : ''
           }`}
-          onClick={() => setCurrentPage(currentPage + 1)}
+          onClick={nextPageHandler}
           disabled={currentPage === pageCount}
         >
           Next

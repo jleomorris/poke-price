@@ -48,15 +48,6 @@ const Search = () => {
           <div className='w-full mt-20 mb-10'>
             <SetGallery setSearchTerm={setSearchTerm} />
           </div>
-          <Link
-            href={{
-              pathname: '/',
-            }}
-          >
-            <a className='text-white border border-white rounded-xl py-4 px-6'>
-              &#8592; Back to home
-            </a>
-          </Link>
         </PageContainer>
       </div>
     </div>

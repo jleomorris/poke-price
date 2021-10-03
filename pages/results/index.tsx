@@ -40,19 +40,15 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   // On initial render set page count
   useEffect(() => {
     const pageCount = Math.ceil(searchedCardData.length / CARD_LIMIT);
-
-    // debugger;
-
     setPageCount(pageCount);
   }, [searchedCardData.length]);
 
-  // On initial render paginate data
+  // When currrent page changes update paginate data
   useEffect(() => {
     const slicedData = searchedCardData.slice(
       currentPage * CARD_LIMIT - CARD_LIMIT,
       currentPage * CARD_LIMIT
     );
-    // debugger;
     setPaginatedData(slicedData);
   }, [currentPage]);
 
@@ -74,7 +70,8 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
 
   // Once searchHistory is set from local storage add the search term to it
   useEffect(() => {
-    if (isSearchHistorySet === true) {
+    // Only store search term to history if it returns results
+    if (isSearchHistorySet === true && searchedCardData.length !== 0) {
       // Limit search history to last 10 searches
       const slicedSearchHistory: string[] = searchHistory.slice(
         searchHistory.length >= 9 ? searchHistory.length - 9 : 0,

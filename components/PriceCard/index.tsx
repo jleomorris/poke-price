@@ -90,7 +90,7 @@ const PriceCard = ({ card }) => {
             <p className='text-sm uppercase tracking-widest'>
               #{card.set.printedTotal}
             </p>
-            <div className='inline-block border border-gray-500 p-2 mt-5 bg-white bg-opacity-80 m-1  rounded-xl'>
+            <div className='inline-block border border-gray-500 p-2 mt-5 bg-white bg-opacity-80 rounded-xl'>
               <p className='font-bold text-md'>Market Price</p>
               <p className='font-bold text-2xl'>
                 $
@@ -103,10 +103,10 @@ const PriceCard = ({ card }) => {
               </p>
             </div>
           </div>
-          <div className=' rounded-r-xl overflow-hidden'>
+          <div className=' rounded-r-xl overflow-hidden w-32'>
             <div className='flex flex-col h-full'>
               <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
-                <p className='font-bold text-md text-center'>Low Price</p>
+                <p className='font-bold text-md text-center'>Low</p>
                 <p className='font-bold text-2xl text-red-500 '>
                   $
                   {(selectedType === 'holo foil' &&
@@ -118,7 +118,7 @@ const PriceCard = ({ card }) => {
                 </p>
               </div>
               <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
-                <p className='font-bold text-md text-center'>Mid Price</p>
+                <p className='font-bold text-md text-center'>Mid</p>
                 <p className='font-bold text-2xl text-yellow-500'>
                   $
                   {(selectedType === 'holo foil' &&
@@ -130,7 +130,7 @@ const PriceCard = ({ card }) => {
                 </p>
               </div>
               <div className='shadow-inner p-4 bg-white bg-opacity-80 h-1/2 flex flex-col items-center'>
-                <p className='font-bold text-md text-center'>High Price</p>
+                <p className='font-bold text-md text-center'>High</p>
                 <p className='font-bold text-2xl text-green-500'>
                   $
                   {(selectedType === 'holo foil' &&

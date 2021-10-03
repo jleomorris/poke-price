@@ -121,7 +121,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
               id='search-results'
               className={`w-full flex flex-wrap xl:justify-center items-start relative`}
             >
-              <h2 className='text-3xl md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
+              <h2 className='text-3xl text-center sm:text-left md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
                 <span className='text-blue-400'>No </span>
                 {`results for `}
                 <span className='text-blue-400'>{`"${searchTerm}"`}</span>
@@ -132,9 +132,9 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
             <section
               ref={resultsRef}
               id='search-results'
-              className={`w-full flex flex-wrap xl:justify-center items-start relative`}
+              className={`w-full flex flex-wrap justify-center items-start relative`}
             >
-              <h2 className='text-3xl md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
+              <h2 className='text-3xl text-center sm:text-left md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
                 <span className='text-blue-400'>
                   {searchedCardData.length}{' '}
                 </span>

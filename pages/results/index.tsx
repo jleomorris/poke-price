@@ -70,14 +70,20 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
 
   // Once searchHistory is set from local storage add the search term to it
   useEffect(() => {
-    // Only store search term to history if it returns results
-    if (isSearchHistorySet === true && searchedCardData.length !== 0) {
-      // Limit search history to last 10 searches
-      const slicedSearchHistory: string[] = searchHistory.slice(
-        searchHistory.length >= 9 ? searchHistory.length - 9 : 0,
-        searchHistory.length
-      );
+    // Limit search history to last 10 searches
+    const slicedSearchHistory: string[] = searchHistory.slice(
+      searchHistory.length >= 9 ? searchHistory.length - 9 : 0,
+      searchHistory.length
+    );
 
+    console.log('results.slicedSearchHistory', slicedSearchHistory);
+
+    // Only store search term to history if it returns results and is not the same as the last search
+    if (
+      isSearchHistorySet === true &&
+      searchedCardData.length !== 0 &&
+      slicedSearchHistory[slicedSearchHistory.length - 1] !== searched
+    ) {
       setSearchHistory([...slicedSearchHistory, searched]);
     }
   }, [isSearchHistorySet]);

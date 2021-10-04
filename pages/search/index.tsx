@@ -35,7 +35,7 @@ const Search = () => {
     <div className='bg-blackLighter min-w-screen min-h-screen'>
       <div className='search flex flex-col justify-center items-center'>
         <PageBanner linkTarget='home'>
-          <div className='-bottom-20 -translate-x-1/2 absolute bg-gray-100 shadow-xl left-1/2 p-10 rounded-xl transform w-1/2 border border-gray-700'>
+          <div className='-bottom-20 -translate-x-1/2 absolute bg-gray-100 shadow-xl left-1/2 p-10 rounded-xl transform w-3/4 lg:w-1/2 border border-gray-700'>
             <CardSearch
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}

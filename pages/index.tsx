@@ -22,15 +22,17 @@ const Home: React.FC = ({ randomCard }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <section className='w-full xl:min-h-screen relative flex justify-start items-start'>
-        <div className='bg-blackLighter p-20 w-full xl:w-6/12 flex flex-col justify-between min-h-screen relative'>
-          <h1 className='text-6xl text-white md:text-8xl mb-10 font-bold relative'>
+      <section className='w-full xl:min-h-screen relative flex flex-col lg:flex-row justify-start items-start'>
+        <div className='bg-blackLighter p-10 md:p-20 w-full xl:w-6/12 flex flex-col justify-between lg:min-h-screen relative'>
+          <h1 className='text-4xl md:text-5xl xl:text-8xl text-center lg:text-left text-white  mb-10 font-bold relative'>
             Quickly find a card price with{' '}
             <span className='text-blue-400'>PokePrice</span>
           </h1>
-          <Features />
+          <div className='my-10 lg:pb-20'>
+            <Features />
+          </div>
         </div>
-        <div className='background-img flex flex-col justify-end relative xl:w-6/12 min-h-screen'>
+        <div className='background-img w-full xl:w-6/12 flex flex-1 flex-col justify-end relative h-52 lg:min-h-full'>
           <img
             className='object-cover h-full w-full absolute top-0 left-0'
             src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633172502/Pokemon-tcg-price-guide/home-background.jpg'

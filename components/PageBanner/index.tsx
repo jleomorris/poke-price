@@ -10,7 +10,7 @@ interface IProps {
 
 const PageBanner: React.FC<IProps> = ({ children, linkTarget }) => {
   return (
-    <div className='relative h-96 p-10 w-full'>
+    <div className='relative h-72 lg:h-96 p-10 w-full'>
       <Image
         className='h-full w-full absolute top-0 left-0'
         layout='fill'

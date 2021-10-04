@@ -106,7 +106,11 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
       }
       return (
         <>
-          <div key={card.name} style={{ width: '500px' }} className='mx-5 my-8'>
+          <div
+            key={card.name}
+            style={{ width: '500px' }}
+            className='mx-5 my-2 sm:my-8'
+          >
             <PriceCard key={card.name} card={card} />
           </div>
         </>

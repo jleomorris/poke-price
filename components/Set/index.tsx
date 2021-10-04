@@ -38,13 +38,13 @@ const Set = ({ set, setSearchTerm }) => {
   }, [set.id]);
 
   return (
-    <div className='set'>
+    <div className='set m-3 w-1/3 sm:w-auto'>
       <button
         key={set.id}
         onClick={() => setSearchTerm(set.name)}
-        className='relative z-0 m-5'
+        className='relative z-0 sm:m-5'
       >
-        <p className='filter bg-gray-800 bg-opacity-80 text-lg relative z-10 text-white hover:text-blue-400 m-2 py-1 px-3 rounded-full'>
+        <p className='filter bg-gray-800 bg-opacity-80 text-lg relative z-10 text-white hover:text-blue-400 m-2 py-1 px-3 rounded-md sm:rounded-full'>
           {set.name}
         </p>
         {setData?.images?.symbol && (

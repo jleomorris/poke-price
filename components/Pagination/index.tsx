@@ -22,7 +22,9 @@ const Pagination = ({ currentPage, setCurrentPage, pageCount, resultsRef }) => {
     <div className='pagination space-x-3 flex justify-center items-center'>
       <>
         <button
-          className={`${buttonStyles} ${currentPage === 1 ? 'opacity-30' : ''}`}
+          className={`${buttonStyles} ${
+            currentPage === 1 ? ' cursor-auto opacity-30' : ''
+          }`}
           onClick={previousPageHandler}
           disabled={currentPage === 1}
         >
@@ -30,14 +32,20 @@ const Pagination = ({ currentPage, setCurrentPage, pageCount, resultsRef }) => {
         </button>
         <div>
           Page <span className='font-bold text-blue-400'>{currentPage}</span> of{' '}
-          <span className='font-bold text-blue-400'>{pageCount}</span>
+          <span className='font-bold text-blue-400'>
+            {pageCount === 0 ? 1 : pageCount}
+          </span>
         </div>
         <button
           className={`${buttonStyles} ${
-            currentPage === pageCount ? 'opacity-30' : ''
+            currentPage === pageCount || (currentPage === 1 && pageCount === 0)
+              ? 'opacity-30 cursor-auto'
+              : ''
           }`}
           onClick={nextPageHandler}
-          disabled={currentPage === pageCount}
+          disabled={
+            currentPage === pageCount || (currentPage === 1 && pageCount === 0)
+          }
         >
           Next
         </button>

@@ -16,7 +16,7 @@ import { scrollTo } from '../../utils';
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
 interface IProps {
-  searchedCards: {}[];
+  searchedCardData: {}[];
 }
 
 const Results: React.FC<IProps> = ({ searchedCardData }) => {
@@ -29,13 +29,15 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   const [isErrowShowing, setIsErrorShowing] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>(['']);
   const [isSearchHistorySet, setIsSearchHistorySet] = useState(false);
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const CARD_LIMIT = 8;
   const [paginatedData, setPaginatedData] = useState();
   const [currentPage, setCurrentpage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(0);
   const resultsRef = useRef();
+
+  useEffect(() => {
+    console.log('results.searchedcarddata', searchedCardData);
+  }, [searchedCardData]);
 
   // On initial render set page count
   useEffect(() => {

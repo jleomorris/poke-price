@@ -1,31 +1,45 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import {
+  IProps,
+  Attack,
+  Weakness,
+  Set,
+  Legalities,
+  WelcomeImages,
+  Tcgplayer,
+  Cardmarket,
+} from './types';
 
-const PriceCard = ({ card }) => {
+const PriceCard: React.FC<IProps> = ({ card }) => {
   const [isNormal, setIsNormal] = useState<boolean>(false);
   const [isHoloFoil, setIsHoloFoil] = useState<boolean>(false);
   const [isReverseHoloFoil, setIsReverseHoloFoil] = useState<boolean>(false);
   const [selectedType, setSelectedType] = useState<string>('');
 
   useEffect(() => {
-    setCardTypes();
-  }, []);
+    // Set Card Types
+    const setCardTypes = (): void => {
+      if (card.tcgplayer?.prices.reverseHolofoil) {
+        setIsReverseHoloFoil(true);
+        setSelectedType('reverse holo foil');
+      }
+      if (card.tcgplayer?.prices.holofoil) {
+        setIsHoloFoil(true);
+        setSelectedType('holo foil');
+      }
+      if (card.tcgplayer?.prices.normal) {
+        setIsNormal(true);
+        setSelectedType('normal');
+      }
+    };
 
-  // Set Card Types
-  const setCardTypes = (): void => {
-    if (card.tcgplayer?.prices.reverseHolofoil) {
-      setIsReverseHoloFoil(true);
-      setSelectedType('reverse holo foil');
-    }
-    if (card.tcgplayer?.prices.holofoil) {
-      setIsHoloFoil(true);
-      setSelectedType('holo foil');
-    }
-    if (card.tcgplayer?.prices.normal) {
-      setIsNormal(true);
-      setSelectedType('normal');
-    }
-  };
+    setCardTypes();
+  }, [
+    card.tcgplayer?.prices.holofoil,
+    card.tcgplayer?.prices.normal,
+    card.tcgplayer?.prices.reverseHolofoil,
+  ]);
 
   return (
     <>
@@ -62,11 +76,6 @@ const PriceCard = ({ card }) => {
         )}
       </div>
       <div className='flex shadow-lg rounded-xl'>
-        {/* <img
-          src={randomCard.images.large}
-          className='h-full'
-          alt='random card'
-          /> */}
         <div className='relative w-48 pt-2'>
           <Image
             src={card.images.small}

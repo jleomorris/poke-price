@@ -2,13 +2,8 @@ import { SetStateAction, useState, useEffect } from 'react';
 // Next
 import Link from 'next/link';
 import Router from 'next/router';
-
-interface Iprops {
-  searchTerm: string;
-  setSearchTerm: any;
-  isErrorShowing: boolean;
-  searchHistory: string[];
-}
+// Types
+import { Iprops } from './types';
 
 const CardSearch: React.FC<Iprops> = ({
   searchTerm,
@@ -18,14 +13,14 @@ const CardSearch: React.FC<Iprops> = ({
 }) => {
   const [value, setValue] = useState<string>('');
 
-  const submitHandler = () => {
+  const submitHandler = (): void => {
     setSearchTerm(value);
     setValue('');
 
     // e.preventDefault();
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     console.log('CardSearch.searchTerm', searchTerm);
     if (searchTerm !== '') {
       Router.push({
@@ -35,8 +30,8 @@ const CardSearch: React.FC<Iprops> = ({
     }
   }, [searchTerm]);
 
-  const inputKeyHandler = (e) => {
-    if (e.keyCode === 13) {
+  const inputKeyHandler = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
       submitHandler();
     }
   };

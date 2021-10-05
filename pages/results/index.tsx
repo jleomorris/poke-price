@@ -33,7 +33,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   const [paginatedData, setPaginatedData] = useState();
   const [currentPage, setCurrentpage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(0);
-  const resultsRef = useRef();
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     console.log('results.searchedcarddata', searchedCardData);

@@ -1,17 +1,24 @@
 // Utils
-import { scrollTo } from '../../utils';
+// import { scrollTo } from '../../utils';
+// Types
+import { IProps } from './types';
 
-const Pagination = ({ currentPage, setCurrentPage, pageCount, resultsRef }) => {
+const Pagination: React.FC<IProps> = ({
+  currentPage,
+  setCurrentPage,
+  pageCount,
+  resultsRef,
+}) => {
   const buttonStyles = 'border border-white rounded-full py-2 px-4';
 
-  const previousPageHandler = () => {
+  const previousPageHandler = (): void => {
     setCurrentPage(currentPage - 1);
     resultsRef.current.scrollIntoView({ behavior: 'smooth' });
     // window.scrollTo(0, 0);
     // scrollTo('search-results');
   };
 
-  const nextPageHandler = () => {
+  const nextPageHandler = (): void => {
     setCurrentPage(currentPage + 1);
     resultsRef.current.scrollIntoView({ behavior: 'smooth' });
     // window.scrollTo(0, 0);

@@ -41,7 +41,7 @@ const Home: React.FC = ({ randomCard }) => {
           <div className='image-overlay h-full w-full bg-gradient-to-r from-blackLighter absolute top-0 left-0' />
           <div className='inline-block mx-auto my-auto'>
             <Link href={{ pathname: '/search' }}>
-              <a className='relative rounded-xl bg-blackLighter hover:text-blue-400 border-2 hover:border-blue-400 px-10 py-5 text-white text-center'>
+              <a className='relative rounded-xl bg-black bg-opacity-60 hover:text-blue-400 border-2 hover:border-blue-400 px-10 py-5 text-white text-center'>
                 Get Started &#8594;
               </a>
             </Link>

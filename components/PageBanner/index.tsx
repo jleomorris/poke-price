@@ -23,7 +23,7 @@ const PageBanner: React.FC<IProps> = ({ children, linkTarget }) => {
           pathname: `/${linkTarget === 'home' ? '' : linkTarget}`,
         }}
       >
-        <a className='relative text-white border border-white rounded-xl py-4 px-6 bg-black bg-opacity-60'>
+        <a className='relative text-white border border-white hover:text-blue-400 hover:border-blue-400 rounded-xl py-4 px-6 bg-black bg-opacity-60'>
           &#8592; {`Back to ${linkTarget}`}
         </a>
       </Link>

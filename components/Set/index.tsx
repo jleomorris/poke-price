@@ -3,9 +3,28 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 // Types
 import { IProps } from './types';
+import { SetDataType } from './types';
+
+const dummyData = {
+  id: 'base1',
+  name: 'Base',
+  series: 'Base',
+  printedTotal: 102,
+  total: 102,
+  legalities: {
+    unlimited: 'Legal',
+  },
+  ptcgoCode: 'BS',
+  releaseDate: '1999/01/09',
+  updatedAt: '2020/08/14 09:35:00',
+  images: {
+    symbol: 'https://images.pokemontcg.io/base1/symbol.png',
+    logo: 'https://images.pokemontcg.io/base1/logo.png',
+  },
+};
 
 const Set: React.FC<IProps> = ({ set, setSearchTerm }) => {
-  const [setData, setSetData] = useState({});
+  const [setData, setSetData] = useState<SetDataType>(dummyData);
 
   // Set image url on component render
   useEffect(() => {

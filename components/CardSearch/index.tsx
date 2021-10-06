@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Router from 'next/router';
 // Types
 import { Iprops } from './types';
+// Utils
+import { removeSpecialChars } from '../../utils';
 
 const CardSearch: React.FC<Iprops> = ({
   searchTerm,
@@ -14,7 +16,8 @@ const CardSearch: React.FC<Iprops> = ({
   const [value, setValue] = useState<string>('');
 
   const submitHandler = (): void => {
-    setSearchTerm(value);
+    const parsedValue = removeSpecialChars(value);
+    setSearchTerm(parsedValue);
     setValue('');
 
     // e.preventDefault();

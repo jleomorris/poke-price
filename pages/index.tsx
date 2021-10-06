@@ -1,16 +1,11 @@
-import { useState, useEffect, DOMElement } from 'react';
 // Next
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-// Styling
-import homeStyles from '../styles/Home.module.css';
 // Components
-import PriceCard from '../components/PriceCard';
-import CardSearch from '../components/CardSearch';
 import Features from '../components/Features';
 
-const Home: React.FC = ({ randomCard }) => {
+const Home: React.FC = () => {
   return (
     <main className='relative w-screen min-h-screen flex flex-wrap justify-center bg-gray-100'>
       <Head>
@@ -33,11 +28,14 @@ const Home: React.FC = ({ randomCard }) => {
           </div>
         </div>
         <div className='background-img w-full xl:w-6/12 flex flex-1 flex-col justify-end relative h-52 lg:min-h-full'>
-          <img
-            className='object-cover h-full w-full absolute top-0 left-0'
-            src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633172502/Pokemon-tcg-price-guide/home-background.jpg'
-            alt='home background'
-          />
+          <div className='absolute top-0 left-0 h-full w-full'>
+            <Image
+              src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633172502/Pokemon-tcg-price-guide/home-background.jpg'
+              alt='background'
+              objectFit='cover'
+              layout='fill'
+            />
+          </div>
           <div className='image-overlay h-full w-full bg-gradient-to-r from-blackLighter absolute top-0 left-0' />
           <div className='inline-block mx-auto my-auto'>
             <Link href={{ pathname: '/search' }}>

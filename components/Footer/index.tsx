@@ -1,10 +1,9 @@
 // Images and Icons
-import github from '../../Images/github.svg';
-import linkedin from '../../Images/linkedin.svg';
-import mail from '../../Images/mail.svg';
+import github from '../../images/github.svg';
+import linkedin from '../../images/linkedin.svg';
+import mail from '../../images/mail.svg';
 // Next
 import Image from 'next/image';
-import React from 'react';
 
 const Footer: React.FC = () => {
   return (

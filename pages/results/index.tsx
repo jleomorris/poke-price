@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 // Next
 import { useRouter } from 'next/router';
+import { NextPageContext } from 'next';
 // Components
 import PageContainer from '../../components/PageContainer';
 import PriceCard from '../../components/PriceCard';
@@ -8,9 +9,6 @@ import Pagination from '../../components/Pagination';
 import PageBanner from '../../components/PageBanner';
 // Other
 import { sets } from '../../setData';
-// Utils
-// import { scrollTo } from '../../utils';
-import { NextPageContext } from 'next';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 

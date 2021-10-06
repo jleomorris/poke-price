@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
+// Next
 import Image from 'next/image';
+// Types
 import { IProps } from './types';
+// Utils
+import { convertToDecimals } from '../../utils';
 
 const PriceCard: React.FC<IProps> = ({ card }) => {
   const [isNormal, setIsNormal] = useState<boolean>(false);
@@ -95,11 +99,20 @@ const PriceCard: React.FC<IProps> = ({ card }) => {
               <p className='font-bold text-2xl'>
                 $
                 {(selectedType === 'holo foil' &&
-                  card.tcgplayer?.prices?.holofoil?.market) ||
+                  convertToDecimals(
+                    card.tcgplayer?.prices?.holofoil?.market,
+                    2
+                  )) ||
                   (selectedType === 'reverse holo foil' &&
-                    card.tcgplayer?.prices?.reverseHolofoil?.market) ||
+                    convertToDecimals(
+                      card.tcgplayer?.prices?.reverseHolofoil?.market,
+                      2
+                    )) ||
                   (selectedType === 'normal' &&
-                    card.tcgplayer?.prices?.normal?.market)}
+                    convertToDecimals(
+                      card.tcgplayer?.prices?.normal?.market,
+                      2
+                    ))}
               </p>
             </div>
           </div>

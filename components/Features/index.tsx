@@ -1,3 +1,6 @@
+// Next
+import Image from 'next/image';
+
 const features = [
   {
     title: 'Card prices from TCGPlayer',
@@ -13,7 +16,7 @@ const features = [
   },
 ];
 
-const Features = () => {
+const Features: React.FC = () => {
   return (
     <div>
       <section className='features flex flex-wrap justify-center w-full'>
@@ -22,11 +25,12 @@ const Features = () => {
             key={feature.title}
             className='feature flex flex-col items-center m-2 w-1/4 lg:w-30% text-center'
           >
-            <div className='h-20'>
-              <img
+            <div className='h-24 sm:h-32 w-32 sm:w-40 relative'>
+              <Image
                 src={feature.img}
                 alt='feature'
-                className='h-full object-contain'
+                objectFit='contain'
+                layout='fill'
               />
             </div>
             <p className='mt-5 text-sm lg:text-2xl text-white'>

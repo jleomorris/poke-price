@@ -1,15 +1,6 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import {
-  IProps,
-  Attack,
-  Weakness,
-  Set,
-  Legalities,
-  WelcomeImages,
-  Tcgplayer,
-  Cardmarket,
-} from './types';
+import { IProps } from './types';
 
 const PriceCard: React.FC<IProps> = ({ card }) => {
   const [isNormal, setIsNormal] = useState<boolean>(false);

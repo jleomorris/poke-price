@@ -1,8 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 // Next
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Image from 'next/image';
 // Components
 import PageContainer from '../../components/PageContainer';
 import PriceCard from '../../components/PriceCard';
@@ -11,13 +9,111 @@ import PageBanner from '../../components/PageBanner';
 // Other
 import { sets } from '../../setData';
 // Utils
-import { scrollTo } from '../../utils';
+// import { scrollTo } from '../../utils';
+import { NextPageContext } from 'next';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
 interface IProps {
   searchedCardData: {}[];
 }
+
+const dummyPaginatedData = [
+  {
+    id: 'basep-19',
+    name: "Sabrina's Abra",
+    supertype: 'Pokémon',
+    subtypes: ['Basic'],
+    level: '15',
+    hp: '40',
+    types: ['Psychic'],
+    evolvesTo: ['Kadabra'],
+    attacks: [
+      {
+        name: 'Pound',
+        cost: ['Colorless'],
+        convertedEnergyCost: 1,
+        damage: '10',
+        text: '',
+      },
+      {
+        name: 'Synchronize',
+        cost: ['Psychic', 'Colorless'],
+        convertedEnergyCost: 2,
+        damage: '40',
+        text: "This attack can't be used unless Sabrina's Abra and the Defending Pokémon have the same number of Energy cards attached to them.",
+      },
+    ],
+    weaknesses: [
+      {
+        type: 'Psychic',
+        value: '×2',
+      },
+    ],
+    set: {
+      id: 'basep',
+      name: 'Wizards Black Star Promos',
+      series: 'Base',
+      printedTotal: 53,
+      total: 53,
+      legalities: {
+        unlimited: 'Legal',
+      },
+      ptcgoCode: 'PR',
+      releaseDate: '1999/07/01',
+      updatedAt: '2020/08/14 09:35:00',
+      images: {
+        symbol: 'https://images.pokemontcg.io/basep/symbol.png',
+        logo: 'https://images.pokemontcg.io/basep/logo.png',
+      },
+    },
+    number: '19',
+    artist: 'Atsuko Nishida',
+    rarity: 'Promo',
+    nationalPokedexNumbers: [63],
+    legalities: {
+      unlimited: 'Legal',
+    },
+    images: {
+      small: 'https://images.pokemontcg.io/basep/19.png',
+      large: 'https://images.pokemontcg.io/basep/19_hires.png',
+    },
+    tcgplayer: {
+      url: 'https://prices.pokemontcg.io/tcgplayer/basep-19',
+      updatedAt: '2021/10/04',
+      prices: {
+        normal: {
+          low: 18.98,
+          mid: 20.3,
+          high: 45,
+          market: 24.18,
+          directLow: 9.47,
+        },
+      },
+    },
+    cardmarket: {
+      url: 'https://prices.pokemontcg.io/cardmarket/basep-19',
+      updatedAt: '2021/10/04',
+      prices: {
+        averageSellPrice: 4.45,
+        lowPrice: 0.99,
+        trendPrice: 5.5,
+        germanProLow: null,
+        suggestedPrice: null,
+        reverseHoloSell: null,
+        reverseHoloLow: null,
+        reverseHoloTrend: 4.34,
+        lowPriceExPlus: 3.5,
+        avg1: 9.99,
+        avg7: 4.45,
+        avg30: 4.5,
+        reverseHoloAvg1: 4.4,
+        reverseHoloAvg7: 2.59,
+        reverseHoloAvg30: 2.59,
+      },
+    },
+  },
+];
 
 const Results: React.FC<IProps> = ({ searchedCardData }) => {
   const router = useRouter();
@@ -26,14 +122,14 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   } = router;
 
   const [searchTerm, setSearchTerm] = useState<string | string[]>('');
-  const [isErrowShowing, setIsErrorShowing] = useState(false);
+  // const [isErrowShowing, setIsErrorShowing] = useState<boolean>(false);
   const [searchHistory, setSearchHistory] = useState<string[]>(['']);
-  const [isSearchHistorySet, setIsSearchHistorySet] = useState(false);
-  const CARD_LIMIT = 8;
-  const [paginatedData, setPaginatedData] = useState();
+  const [isSearchHistorySet, setIsSearchHistorySet] = useState<boolean>(false);
+  const CARD_LIMIT: number = 8;
+  const [paginatedData, setPaginatedData] = useState(dummyPaginatedData);
   const [currentPage, setCurrentpage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(0);
-  const resultsRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null!);
 
   useEffect(() => {
     console.log('results.searchedcarddata', searchedCardData);
@@ -51,7 +147,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
       currentPage * CARD_LIMIT - CARD_LIMIT,
       currentPage * CARD_LIMIT
     );
-    setPaginatedData(slicedData);
+    setPaginatedData(slicedData as any);
   }, [currentPage]);
 
   useEffect(() => {
@@ -73,10 +169,10 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   // Once searchHistory is set from local storage add the search term to it
   useEffect(() => {
     // Limit search history to last 10 searches
-    const slicedSearchHistory: string[] = searchHistory.slice(
-      searchHistory.length >= 9 ? searchHistory.length - 9 : 0,
-      searchHistory.length
-    );
+    const slicedSearchHistory: string[] = searchHistory!.slice(
+      searchHistory!.length >= 9 ? searchHistory!.length - 9 : 0,
+      searchHistory!.length
+    )!;
 
     console.log('results.slicedSearchHistory', slicedSearchHistory);
 
@@ -86,7 +182,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
       searchedCardData.length !== 0 &&
       slicedSearchHistory[slicedSearchHistory.length - 1] !== searched
     ) {
-      setSearchHistory([...slicedSearchHistory, searched]);
+      setSearchHistory([...slicedSearchHistory, searched] as string[]);
     }
   }, [isSearchHistorySet]);
 
@@ -97,7 +193,9 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
 
   const renderCards = () => {
     const cards =
-      paginatedData && paginatedData.length > 0 ? paginatedData : '';
+      paginatedData && paginatedData.length > 0
+        ? paginatedData
+        : dummyPaginatedData;
 
     const ids: string[] = [];
 
@@ -113,7 +211,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
             style={{ width: '500px' }}
             className='mx-5 my-2 sm:my-8'
           >
-            <PriceCard key={card.name} card={card} />
+            <PriceCard key={card.name} card={card as any} />
           </div>
         </>
       );
@@ -169,7 +267,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: NextPageContext) {
   console.log('context.query.searched ===', context.query.searched);
   const searchTerm = context.query.searched;
 

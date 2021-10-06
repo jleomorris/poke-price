@@ -1,18 +1,14 @@
 // React
 import { useState, useEffect } from 'react';
-// Next
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
 // Components
 import CardSearch from '../../components/CardSearch';
 import SetGallery from '../../components/SetGallery';
 import PageContainer from '../../components/PageContainer';
 import PageBanner from '../../components/PageBanner';
 
-const Search = () => {
+const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [isErrowShowing, setIsErrorShowing] = useState(false);
+  const [isErrowShowing, setIsErrorShowing] = useState<boolean>(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
   // On app first render set search history state based on local storage

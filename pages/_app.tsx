@@ -4,6 +4,7 @@ import { store } from '../app/store';
 import '../styles/globals.css';
 // Components
 import Nav from '../components/Nav';
+import Footer from '../components/Footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className='overflow-hidden'>
         <Nav />
         <Component {...pageProps} />
+        <Footer />
       </div>
     </Provider>
   );

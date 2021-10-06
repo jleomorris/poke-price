@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+// Next
 import Image from 'next/image';
+// Types
+import { IProps } from './types';
 
-const Set = ({ set, setSearchTerm }) => {
+const Set: React.FC<IProps> = ({ set, setSearchTerm }) => {
   const [setData, setSetData] = useState({});
 
   // Set image url on component render

@@ -17,17 +17,17 @@ const Home: React.FC = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <section className='w-full xl:min-h-screen relative flex flex-col lg:flex-row justify-start items-start'>
-        <div className='bg-blackLighter p-10 md:p-20 w-full xl:w-6/12 flex flex-col justify-between lg:min-h-screen relative'>
-          <h1 className='text-4xl md:text-5xl xl:text-8xl text-center lg:text-left text-white  mb-10 font-bold relative'>
+      <section className='w-full xl:min-h-screen relative flex flex-col xl:flex-row justify-start items-start'>
+        <div className='bg-blackLighter p-10 md:p-20 w-full xl:w-6/12 flex flex-col justify-between xl:min-h-screen relative'>
+          <h1 className='text-4xl md:text-5xl xl:text-8xl text-center xl:text-left text-white  mb-10 font-bold relative'>
             Quickly find a card price with{' '}
             <span className='text-blue-400'>PokePrice</span>
           </h1>
-          <div className='my-10 lg:pb-20'>
+          <div className='my-10 xl:pb-20'>
             <Features />
           </div>
         </div>
-        <div className='background-img w-full xl:w-6/12 flex flex-1 flex-col justify-end relative h-52 lg:min-h-full'>
+        <div className='background-img w-full xl:w-6/12 flex flex-1 flex-col justify-end relative h-52 xl:min-h-full'>
           <div className='absolute top-0 left-0 h-full w-full'>
             <Image
               src='https://res.cloudinary.com/jleomorris/image/upload/f_auto,q_auto/v1633172502/Pokemon-tcg-price-guide/home-background.jpg'

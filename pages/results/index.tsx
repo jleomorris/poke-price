@@ -7,6 +7,7 @@ import PageContainer from '../../components/PageContainer';
 import PriceCard from '../../components/PriceCard';
 import Pagination from '../../components/Pagination';
 import PageBanner from '../../components/PageBanner';
+import Animate from '../../components/Animate';
 // Other
 import { sets } from '../../setData';
 
@@ -219,48 +220,50 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   return (
     <div className='bg-blackLighter min-w-screen min-h-screen'>
       <PageBanner linkTarget='search' />
-      <PageContainer>
-        <div className='results'>
-          {searchedCardData.length === 0 && (
-            <section
-              id='search-results'
-              className={`w-full flex flex-wrap xl:justify-center items-start relative`}
-            >
-              <h2 className='text-3xl text-center sm:text-left md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
-                <span className='text-blue-400'>No </span>
-                {`results for `}
-                <span className='text-blue-400'>{`"${searchTerm}"`}</span>
-              </h2>
-            </section>
-          )}
-          {searchedCardData.length > 0 && (
-            <section
-              ref={resultsRef}
-              id='search-results'
-              className={`w-full flex flex-wrap justify-center items-start relative`}
-            >
-              <h2 className='text-3xl text-center sm:text-left md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
-                <span className='text-blue-400'>
-                  {searchedCardData.length}{' '}
-                </span>
-                {`results for `}
-                <span className='text-blue-400'>{`"${searchTerm}"`}</span>
-              </h2>
-              {paginatedData !== undefined &&
-                paginatedData.length > 0 &&
-                renderCards()}
-            </section>
-          )}
-          <div className='my-5 text-white flex justify-center'>
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentpage}
-              pageCount={pageCount}
-              resultsRef={resultsRef}
-            />
+      <Animate animationType='pageAnimation'>
+        <PageContainer>
+          <div className='results'>
+            {searchedCardData.length === 0 && (
+              <section
+                id='search-results'
+                className={`w-full flex flex-wrap xl:justify-center items-start relative`}
+              >
+                <h2 className='text-3xl text-center sm:text-left md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
+                  <span className='text-blue-400'>No </span>
+                  {`results for `}
+                  <span className='text-blue-400'>{`"${searchTerm}"`}</span>
+                </h2>
+              </section>
+            )}
+            {searchedCardData.length > 0 && (
+              <section
+                ref={resultsRef}
+                id='search-results'
+                className={`w-full flex flex-wrap justify-center items-start relative`}
+              >
+                <h2 className='text-3xl text-center sm:text-left md:text-5xl xl:text-7xl tracking-tighter mb-10 text-white w-full'>
+                  <span className='text-blue-400'>
+                    {searchedCardData.length}{' '}
+                  </span>
+                  {`results for `}
+                  <span className='text-blue-400'>{`"${searchTerm}"`}</span>
+                </h2>
+                {paginatedData !== undefined &&
+                  paginatedData.length > 0 &&
+                  renderCards()}
+              </section>
+            )}
+            <div className='my-5 text-white flex justify-center'>
+              <Pagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentpage}
+                pageCount={pageCount}
+                resultsRef={resultsRef}
+              />
+            </div>
           </div>
-        </div>
-      </PageContainer>
+        </PageContainer>
+      </Animate>
     </div>
   );
 };

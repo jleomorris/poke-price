@@ -5,6 +5,7 @@ import CardSearch from '../../components/CardSearch';
 import SetGallery from '../../components/SetGallery';
 import PageContainer from '../../components/PageContainer';
 import PageBanner from '../../components/PageBanner';
+import Animate from '../../components/Animate';
 
 const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -40,11 +41,13 @@ const Search: React.FC = () => {
             />
           </div>
         </PageBanner>
-        <PageContainer>
-          <div className='w-full mt-20 mb-10'>
-            <SetGallery setSearchTerm={setSearchTerm} />
-          </div>
-        </PageContainer>
+        <Animate animationType='pageAnimation'>
+          <PageContainer>
+            <div className='w-full mt-20 mb-10'>
+              <SetGallery setSearchTerm={setSearchTerm} />
+            </div>
+          </PageContainer>
+        </Animate>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-// Animation
 import { ReactNode, useEffect, useState } from 'react';
 // Animation
 import { motion } from 'framer-motion';
@@ -22,7 +21,7 @@ const VARIANT_MAPS: Record<Variant, string> = {
   [Variant.FADEUP]: 'fadeUp',
 };
 
-const Animation: React.FC<IProps> = ({ children, variant }) => {
+const AnimationParent: React.FC<IProps> = ({ children, variant }) => {
   return (
     <motion.main
       variants={animations[VARIANT_MAPS[variant]]} // Pass the variant object into Framer Motion
@@ -30,11 +29,11 @@ const Animation: React.FC<IProps> = ({ children, variant }) => {
       animate='enter' // Animated state to variants.enter
       exit='exit' // Exit state (used later) to variants.exit
       transition={{ type: 'linear' }} // Set the transition to linear
-      className='Animation'
+      className='animation=parent'
     >
       {children}
     </motion.main>
   );
 };
 
-export default Animation;
+export default AnimationParent;

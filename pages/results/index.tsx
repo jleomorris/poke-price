@@ -7,7 +7,7 @@ import PageContainer from '../../components/PageContainer';
 import PriceCard from '../../components/PriceCard';
 import Pagination from '../../components/Pagination';
 import PageBanner from '../../components/PageBanner';
-import Animate, { Variant } from '../../components/Animate';
+import AnimationParent, { Variant } from '../../components/AnimationParent';
 // Other
 import { sets } from '../../setData';
 
@@ -220,7 +220,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   return (
     <div className='bg-blackLighter min-w-screen min-h-screen'>
       <PageBanner linkTarget='search' />
-      <Animate variant={Variant.PAGE}>
+      <AnimationParent variant={Variant.PAGE}>
         <PageContainer>
           <div className='results'>
             {searchedCardData.length === 0 && (
@@ -263,7 +263,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
             </div>
           </div>
         </PageContainer>
-      </Animate>
+      </AnimationParent>
     </div>
   );
 };

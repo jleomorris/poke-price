@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from 'react';
 // Animation
 import { motion } from 'framer-motion';
 import { pageAnimation } from '../../animations';
-import * as animations from '../../animations';
+import * as animationsImport from '../../animations';
 
 interface IProps {
   children: ReactNode;
@@ -14,6 +14,8 @@ export enum Variant {
   PAGE,
   FADEUP,
 }
+
+const animations: { [key: string]: any } = animationsImport;
 
 const VARIANT_MAPS: Record<Variant, string> = {
   [Variant.PAGE]: 'pageAnimation',

@@ -3,11 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 // Components
 import Features from '../components/Features';
-import Animate from '../components/Animate';
+import Animate, { Variant } from '../components/Animate';
 
 const Home: React.FC = () => {
   return (
-    <Animate animationType='pageAnimation'>
+    <Animate variant={Variant.PAGE}>
       <main className='relative w-screen min-h-screen flex flex-wrap justify-center bg-gray-100'>
         <section className='w-full xl:min-h-screen relative flex flex-col xl:flex-row justify-start items-start'>
           <div className='bg-blackLighter p-10 md:p-20 w-full xl:w-6/12 flex flex-col justify-between xl:min-h-screen relative'>

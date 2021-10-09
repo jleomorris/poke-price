@@ -7,13 +7,23 @@ import * as animations from '../../animations';
 
 interface IProps {
   children: ReactNode;
-  animationType: string;
+  variant: Variant;
 }
 
-const Animation: React.FC<IProps> = ({ children, animationType }) => {
+export enum Variant {
+  PAGE,
+  FADEUP,
+}
+
+const VARIANT_MAPS: Record<Variant, string> = {
+  [Variant.PAGE]: 'pageAnimation',
+  [Variant.FADEUP]: 'fadeUp',
+};
+
+const Animation: React.FC<IProps> = ({ children, variant }) => {
   return (
     <motion.main
-      variants={animations[animationType]} // Pass the variant object into Framer Motion
+      variants={animations[VARIANT_MAPS[variant]]} // Pass the variant object into Framer Motion
       initial='hidden' // Set the initial state to variants.hidden
       animate='enter' // Animated state to variants.enter
       exit='exit' // Exit state (used later) to variants.exit

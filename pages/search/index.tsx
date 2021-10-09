@@ -5,7 +5,7 @@ import CardSearch from '../../components/CardSearch';
 import SetGallery from '../../components/SetGallery';
 import PageContainer from '../../components/PageContainer';
 import PageBanner from '../../components/PageBanner';
-import Animate from '../../components/Animate';
+import Animate, { Variant } from '../../components/Animate';
 
 const Search: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -41,7 +41,7 @@ const Search: React.FC = () => {
             />
           </div>
         </PageBanner>
-        <Animate animationType='pageAnimation'>
+        <Animate variant={Variant.FADEUP}>
           <PageContainer>
             <div className='w-full mt-20 mb-10'>
               <SetGallery setSearchTerm={setSearchTerm} />

@@ -30,3 +30,17 @@ a {
   top: 50%;
   transform: translateY(-50%);
 }
+
+@media only screen and (min-width: 0px) {
+  .pricecard-container {
+    width: 300px;
+    /* border: 1px solid red; */
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .pricecard-container {
+    width: 500px;
+    /* border: 1px solid green; */
+  }
+}

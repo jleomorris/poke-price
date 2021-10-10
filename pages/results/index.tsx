@@ -10,11 +10,14 @@ import PageBanner from '../../components/PageBanner';
 import AnimationParent, { Variant } from '../../components/AnimationParent';
 // Other
 import { sets } from '../../setData';
+// Types
+import { Card } from '../../pageTypes/results';
 
 const API_URL: string = 'https://api.pokemontcg.io/v2/cards';
 
 interface IProps {
   searchedCardData: {}[];
+  searchType: string;
 }
 
 const dummyPaginatedData = [
@@ -114,7 +117,7 @@ const dummyPaginatedData = [
   },
 ];
 
-const Results: React.FC<IProps> = ({ searchedCardData }) => {
+const Results: React.FC<IProps> = ({ searchedCardData, searchType }) => {
   const router = useRouter();
   const {
     query: { searched },
@@ -128,6 +131,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
   const [paginatedData, setPaginatedData] = useState(dummyPaginatedData);
   const [currentPage, setCurrentpage] = useState<number>(1);
   const [pageCount, setPageCount] = useState<number>(0);
+  const [value, setValue] = useState<string>('');
   const resultsRef = useRef<HTMLDivElement>(null!);
 
   useEffect(() => {
@@ -190,16 +194,31 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
     localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
   }, [searchHistory]);
 
+  // Rerender cards when user enters input
+  useEffect(() => {
+    console.log('results.input.value', value);
+    renderCards();
+  }, [value]);
+
   const renderCards = () => {
-    const cards =
+    let cards: any =
       paginatedData && paginatedData.length > 0
         ? paginatedData
         : dummyPaginatedData;
 
+    // Filter cards
+    if (value !== '') {
+      cards = searchedCardData.filter((card: any) =>
+        card.name.toLowerCase().includes(value.toLowerCase())
+      );
+      console.log('results.renderCards.filteredCards', cards);
+    }
+
     const ids: string[] = [];
 
-    return cards.map((card, index) => {
+    return cards.map((card: any, index: number) => {
       ids.push(card.id.split('-')[0]);
+      // Log ids on last iteration to help identify sets for search page
       if (index === cards.length - 1) {
         console.log(ids);
       }
@@ -216,6 +235,13 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
       );
     });
   };
+
+  // const inputKeyHandler = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+  //   if (e.key === 'Enter') {
+  //     renderCards();
+  //     setValue('');
+  //   }
+  // };
 
   return (
     <div className='bg-blackLighter min-w-screen min-h-screen'>
@@ -248,18 +274,60 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
                   {`results for `}
                   <span className='text-blue-400'>{`"${searchTerm}"`}</span>
                 </h2>
+                {searchType === 'set' && (
+                  <div className='relative border border-error w-full'>
+                    <div className='w-full md:w-1/2 xl:w-1/3 relative'>
+                      <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200 '>
+                        {/* <button onClick={submitHandler}> */}
+                        <svg
+                          width='23'
+                          height='19'
+                          viewBox='0 0 16 15'
+                          xmlns='http://www.w3.org/2000/svg'
+                        >
+                          <g
+                            transform='translate(.5)'
+                            stroke='#242424'
+                            fill='none'
+                          >
+                            <circle cx='5.5' cy='5.5' r='4.75'></circle>
+                            <rect
+                              transform='rotate(-45 11.357 11.457)'
+                              x='11.107'
+                              y='8.207'
+                              width='1'
+                              height='6.5'
+                              rx='.5'
+                            ></rect>
+                          </g>
+                        </svg>
+                        {/* </button> */}
+                      </div>
+                      <input
+                        type='text'
+                        className='w-full my-3 p-3 rounded-full pl-5 shadow-inner border border-gray-400'
+                        placeholder='Enter card name'
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                        // onKeyUp={(e) => inputKeyHandler(e)}
+                      />
+                    </div>
+                  </div>
+                )}
                 {paginatedData !== undefined &&
                   paginatedData.length > 0 &&
                   renderCards()}
               </section>
             )}
             <div className='my-5 text-white flex justify-center'>
-              <Pagination
-                currentPage={currentPage}
-                setCurrentPage={setCurrentpage}
-                pageCount={pageCount}
-                resultsRef={resultsRef}
-              />
+              {value === '' && (
+                <Pagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentpage}
+                  pageCount={pageCount}
+                  resultsRef={resultsRef}
+                />
+              )}
             </div>
           </div>
         </PageContainer>
@@ -271,6 +339,7 @@ const Results: React.FC<IProps> = ({ searchedCardData }) => {
 export async function getServerSideProps(context: NextPageContext) {
   console.log('context.query.searched ===', context.query.searched);
   const searchTerm = context.query.searched;
+  let searchType = 'card';
 
   // By default request is for cards by name - q=name
   let apiUrl = `https://api.pokemontcg.io/v2/cards?q=name:${searchTerm}`;
@@ -279,6 +348,7 @@ export async function getServerSideProps(context: NextPageContext) {
   sets.forEach((set) => {
     if (set.name === searchTerm) {
       apiUrl = `https://api.pokemontcg.io/v2/cards?q=set.id:${set.id}`;
+      searchType = 'set';
     }
   });
 
@@ -297,7 +367,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const data = await res.json();
   const searchedCardData = await data.data;
 
-  return { props: { searchedCardData } };
+  return { props: { searchedCardData, searchType } };
 }
 
 export default Results;

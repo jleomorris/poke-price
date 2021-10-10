@@ -206,34 +206,39 @@ const Results: React.FC<IProps> = ({ searchedCardData, searchType }) => {
         ? paginatedData
         : dummyPaginatedData;
 
-    // Filter cards
+    // Filter cards if user input is present
     if (value !== '') {
       cards = searchedCardData.filter((card: any) =>
         card.name.toLowerCase().includes(value.toLowerCase())
       );
       console.log('results.renderCards.filteredCards', cards);
+      console.log('results.renderCards.filteredCards.length', cards.length);
     }
 
     const ids: string[] = [];
 
-    return cards.map((card: any, index: number) => {
-      ids.push(card.id.split('-')[0]);
-      // Log ids on last iteration to help identify sets for search page
-      if (index === cards.length - 1) {
-        console.log(ids);
-      }
-      return (
-        <>
-          <div
-            key={card.name}
-            style={{ width: '500px' }}
-            className='mx-5 my-2 sm:my-8'
-          >
-            <PriceCard key={card.name} card={card as any} />
-          </div>
-        </>
-      );
-    });
+    if (cards.length === 0) {
+      return <h2 className='text-white my-10'>No results found</h2>;
+    } else {
+      return cards.map((card: any, index: number) => {
+        ids.push(card.id.split('-')[0]);
+        // Log ids on last iteration to help identify sets for search page
+        if (index === cards.length - 1) {
+          console.log(ids);
+        }
+        return (
+          <>
+            <div
+              key={card.name}
+              style={{ width: '500px' }}
+              className='mx-5 my-2 sm:my-8'
+            >
+              <PriceCard key={card.name} card={card as any} />
+            </div>
+          </>
+        );
+      });
+    }
   };
 
   // const inputKeyHandler = (e: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -275,7 +280,7 @@ const Results: React.FC<IProps> = ({ searchedCardData, searchType }) => {
                   <span className='text-blue-400'>{`"${searchTerm}"`}</span>
                 </h2>
                 {searchType === 'set' && (
-                  <div className='relative border border-error w-full'>
+                  <div className='relative w-full'>
                     <div className='w-full md:w-1/2 xl:w-1/3 relative'>
                       <div className='magnification-icon-container absolute rounded-full p-2 bg-gray-200 '>
                         {/* <button onClick={submitHandler}> */}

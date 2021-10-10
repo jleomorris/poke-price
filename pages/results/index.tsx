@@ -231,7 +231,7 @@ const Results: React.FC<IProps> = ({ searchedCardData, searchType }) => {
             <div
               key={card.name}
               // style={{ width: '500px' }}
-              className='pricecard-container bg-white bg-opacity-20 sm:bg-transparent sm:bg-opacity-100 flex-shrink-0 mx-5 my-2 sm:my-8'
+              className='pricecard-container bg-white bg-opacity-20 sm:bg-transparent sm:bg-opacity-100 flex-shrink-0 mx-5 my-2 sm:my-8 rounded-xl'
             >
               <PriceCard key={card.name} card={card as any} />
             </div>

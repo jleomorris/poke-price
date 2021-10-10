@@ -42,10 +42,10 @@ const PriceCard: React.FC<IProps> = ({ card }) => {
 
   return (
     <>
-      <div className='tabs sm:ml-2 flex'>
+      <div className='tabs bg-blackLighter sm:ml-2 flex'>
         {isNormal && (
           <button
-            className={`mr-2 px-2 sm:px-4 py-1 sm:py-2 bg-white ${
+            className={`mr-1 sm:mr-2 px-2 sm:px-4 py-1 sm:py-2 bg-white ${
               selectedType === 'normal' ? '' : 'bg-opacity-50'
             } rounded-t-xl`}
             onClick={() => setSelectedType('normal')}
@@ -55,7 +55,7 @@ const PriceCard: React.FC<IProps> = ({ card }) => {
         )}
         {isHoloFoil && (
           <button
-            className={`mr-2 px-2 sm:px-4 py-1 sm:py-2 bg-white ${
+            className={`mr-1 sm:mr-2 px-2 sm:px-4 py-1 sm:py-2 bg-white ${
               selectedType === 'holo foil' ? '' : 'bg-opacity-50'
             } rounded-t-xl`}
             onClick={() => setSelectedType('holo foil')}
@@ -65,7 +65,7 @@ const PriceCard: React.FC<IProps> = ({ card }) => {
         )}
         {isReverseHoloFoil && (
           <button
-            className={`mr-2 px-2 sm:px-4 py-1 sm:py-2 bg-white ${
+            className={`mr-1 sm:mr-2 px-2 sm:px-4 py-1 sm:py-2 bg-white ${
               selectedType === 'reverse holo foil' ? '' : 'bg-opacity-50'
             } rounded-t-xl`}
             onClick={() => setSelectedType('reverse holo foil')}
